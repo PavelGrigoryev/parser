@@ -3,9 +3,13 @@ GET http://localhost:8080/products
 Accept: application/json
 
 ###получения продукта по id
-GET http://localhost:8080/products/findById/66
+GET http://localhost:8080/products/findById/666
 Accept: application/json
 
 ###получения продукта по имени начинающемуся с...
 GET http://localhost:8080/products/findByNameStartsWith/Ручка
+Accept: application/json
+
+###получения продукта по конкретной цене
+GET http://localhost:8080/products/findByPriceBYN/5.99
 Accept: application/json

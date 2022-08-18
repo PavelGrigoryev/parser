@@ -25,33 +25,39 @@ public class ProductParser {
     @Scheduled(fixedDelay = 600000)
     public void parseProducts() {
 
-        String url = "https://diy.by/catalog/homeware/?PAGECOUNT=80&FIRSTLEVID=homeware&PAGEN_1=4";
+        for (int j = 1; j < 11; j++) {
+            String url = "https://diy.by/catalog/homeware/?PAGECOUNT=80&FIRSTLEVID=homeware&PAGEN_1=" + j;
 
-        try {
-            Document document = Jsoup.connect(url)
-                    .userAgent("Chrome")
-                    .timeout(5000)
-                    .referrer("https://google.com")
-                    .get();
+            try {
+                Document document = Jsoup.connect(url)
+                        .userAgent("Chrome")
+                        .timeout(5000)
+                        .referrer("https://google.com")
+                        .get();
 
-            Elements productNames = document.select("div.table");
+                Elements divs = document.select("div.table");
 
-            for (Element element : productNames) {
-                for (int i = 0; i < 80; i++) {
-                    String name = element.select("div.td_name").get(i).text();
-                    String price = element.select("div.td_price").get(i).text();
-                    if (!productService.isExist(name)) {
-                    Product product = new Product();
-                    product.setName(name);
-                    product.setPriceBYN(price);
-                    productService.save(product);
-                    log.info(String.valueOf(product));
+                for (Element element : divs) {
+                    for (int i = 0; i < 80; i++) {
+                        String name = element.select("div.td_name").get(i).text();
+                        String manufacturer = element.select("div.td_proizv").get(i).text();
+                        String amount = element.select("div.td_nalich").get(i).text();
+                        String price = element.select("div.td_price").get(i).text();
+                        if (!productService.isExist(name)) {
+                            Product product = new Product();
+                            product.setName(name);
+                            product.setManufacturer(manufacturer);
+                            product.setAmount(amount);
+                            product.setPriceBYN(price);
+                            productService.save(product);
+                            log.info(String.valueOf(product));
+                        }
                     }
                 }
-            }
 
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
+            } catch (IOException e) {
+                log.error(e.getMessage(), e);
+            }
         }
     }
 }

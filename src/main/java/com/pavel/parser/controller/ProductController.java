@@ -32,4 +32,10 @@ public class ProductController {
     private List<Product> findByNameStartsWith(@PathVariable("name") String name) {
         return productService.findByNameStartsWith(name);
     }
+
+    @GetMapping("/findByPriceBYN/{priceBYN}")
+    private List<Product> findByPriceBYN(@PathVariable("priceBYN") String priceBYN) {
+        return productService.findByPriceBYN(priceBYN);
+    }
+
 }

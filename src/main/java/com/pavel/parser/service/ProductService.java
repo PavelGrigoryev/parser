@@ -16,4 +16,7 @@ public interface ProductService {
     Optional<Product> findById(Long id);
 
     List<Product> findByNameStartsWith(String name);
+
+    List<Product> findByPriceBYN(String priceBYN);
+
 }

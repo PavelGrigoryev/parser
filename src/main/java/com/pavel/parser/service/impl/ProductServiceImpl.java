@@ -45,4 +45,10 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findByNameStartsWith(String name) {
         return productRepository.findByNameStartsWith(name);
     }
+
+    @Override
+    public List<Product> findByPriceBYN(String priceBYN) {
+        return productRepository.findByPriceBYN(priceBYN);
+    }
+
 }

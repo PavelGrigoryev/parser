@@ -18,6 +18,12 @@ public class Product {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "manufacturer")
+    private String manufacturer;
+
+    @Column(name = "amount")
+    private String amount;
+
     @Column(name = "price_BYN")
     private String priceBYN;
 
