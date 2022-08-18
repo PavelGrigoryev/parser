@@ -19,22 +19,22 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping
-    private List<Product> findAll() {
+    public List<Product> findAll() {
         return productService.findAll();
     }
 
     @GetMapping("/findById/{id}")
-    private Optional<Product> findById(@PathVariable("id") Long id) {
+    public Optional<Product> findById(@PathVariable("id") Long id) {
         return productService.findById(id);
     }
 
     @GetMapping("/findByNameStartsWith/{name}")
-    private List<Product> findByNameStartsWith(@PathVariable("name") String name) {
+    public List<Product> findByNameStartsWith(@PathVariable("name") String name) {
         return productService.findByNameStartsWith(name);
     }
 
     @GetMapping("/findByPriceBYN/{priceBYN}")
-    private List<Product> findByPriceBYN(@PathVariable("priceBYN") String priceBYN) {
+    public List<Product> findByPriceBYN(@PathVariable("priceBYN") String priceBYN) {
         return productService.findByPriceBYN(priceBYN);
     }
 

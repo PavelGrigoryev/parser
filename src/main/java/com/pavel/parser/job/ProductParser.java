@@ -43,7 +43,7 @@ public class ProductParser {
                         String manufacturer = element.select("div.td_proizv").get(i).text();
                         String amount = element.select("div.td_nalich").get(i).text();
                         String price = element.select("div.td_price").get(i).text();
-                        if (!productService.isExist(name)) {
+                        if (Boolean.FALSE.equals(productService.isExist(name))) {
                             Product product = new Product();
                             product.setName(name);
                             product.setManufacturer(manufacturer);
