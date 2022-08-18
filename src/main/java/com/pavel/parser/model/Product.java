@@ -18,8 +18,8 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-   /* @Column(name = "price_BYN")
-    private String priceBYN;*/
+    @Column(name = "price_BYN")
+    private String priceBYN;
 
     @Column(name = "time")
     private LocalDateTime localDateTime = LocalDateTime.now();

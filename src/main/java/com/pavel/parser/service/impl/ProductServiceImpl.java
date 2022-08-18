@@ -1,7 +1,8 @@
-package com.pavel.parser.service;
+package com.pavel.parser.service.impl;
 
 import com.pavel.parser.model.Product;
 import com.pavel.parser.repository.ProductRepository;
+import com.pavel.parser.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

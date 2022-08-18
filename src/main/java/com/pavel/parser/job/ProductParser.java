@@ -5,6 +5,7 @@ import com.pavel.parser.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -33,17 +34,21 @@ public class ProductParser {
                     .referrer("https://google.com")
                     .get();
 
-            Elements productNames = document.getElementsByClass("td_name");
+            Elements productNames = document.select("div.table");
 
-            productNames.forEach(element -> {
-                String name = element.ownText();
-                if (!productService.isExist(name)) {
+            for (Element element : productNames) {
+                for (int i = 0; i < 80; i++) {
+                    String name = element.select("div.td_name").get(i).text();
+                    String price = element.select("div.td_price").get(i).text();
+                    if (!productService.isExist(name)) {
                     Product product = new Product();
                     product.setName(name);
+                    product.setPriceBYN(price);
                     productService.save(product);
                     log.info(String.valueOf(product));
+                    }
                 }
-            });
+            }
 
         } catch (IOException e) {
             log.error(e.getMessage(), e);
