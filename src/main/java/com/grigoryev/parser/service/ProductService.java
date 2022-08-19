@@ -1,6 +1,6 @@
-package com.pavel.parser.service;
+package com.grigoryev.parser.service;
 
-import com.pavel.parser.model.Product;
+import com.grigoryev.parser.model.Product;
 
 import java.util.List;
 import java.util.Optional;

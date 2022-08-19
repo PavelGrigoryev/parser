@@ -1,4 +1,4 @@
-package com.pavel.parser;
+package com.grigoryev.parser;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.pavel.parser.exception;
+package com.grigoryev.parser.exception;
 
 public class NoSuchProductException extends RuntimeException {
 

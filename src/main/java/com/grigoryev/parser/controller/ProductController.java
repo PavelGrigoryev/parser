@@ -1,7 +1,7 @@
-package com.pavel.parser.controller;
+package com.grigoryev.parser.controller;
 
-import com.pavel.parser.model.Product;
-import com.pavel.parser.service.ProductService;
+import com.grigoryev.parser.service.ProductService;
+import com.grigoryev.parser.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

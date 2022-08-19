@@ -1,4 +1,4 @@
-package com.pavel.parser.exception;
+package com.grigoryev.parser.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

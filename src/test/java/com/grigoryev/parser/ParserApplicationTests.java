@@ -1,4 +1,4 @@
-package com.pavel.parser;
+package com.grigoryev.parser;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

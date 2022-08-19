@@ -1,6 +1,6 @@
-package com.pavel.parser.repository;
+package com.grigoryev.parser.repository;
 
-import com.pavel.parser.model.Product;
+import com.grigoryev.parser.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,9 +1,9 @@
-package com.pavel.parser.service.impl;
+package com.grigoryev.parser.service.impl;
 
-import com.pavel.parser.exception.NoSuchProductException;
-import com.pavel.parser.model.Product;
-import com.pavel.parser.repository.ProductRepository;
-import com.pavel.parser.service.ProductService;
+import com.grigoryev.parser.exception.NoSuchProductException;
+import com.grigoryev.parser.model.Product;
+import com.grigoryev.parser.repository.ProductRepository;
+import com.grigoryev.parser.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findAll() {
-        log.info("Получаем все продукты");
+        log.info("Получаем все продукты ...");
         return productRepository.findAll();
     }
 
@@ -53,13 +53,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findByNameStartsWith(String name) {
-        log.info("Получаем продукты по имени начинающемуся с \"{}\"", name);
+        log.info("Получаем продукты по имени начинающемуся с \"{}\" ...", name);
         return productRepository.findByNameStartsWith(name);
     }
 
     @Override
     public List<Product> findByManufacturer(String manufacturer) {
-        log.info("Получаем продукты по производителю \"{}\"", manufacturer);
+        log.info("Получаем продукты по производителю \"{}\" ...", manufacturer);
         return productRepository.findByManufacturer(manufacturer);
     }
 

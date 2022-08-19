@@ -1,4 +1,4 @@
-package com.pavel.parser.model;
+package com.grigoryev.parser.model;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.pavel.parser.exception;
+package com.grigoryev.parser.exception;
 
 import lombok.Data;
 

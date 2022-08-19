@@ -1,7 +1,7 @@
-package com.pavel.parser.job;
+package com.grigoryev.parser.job;
 
-import com.pavel.parser.model.Product;
-import com.pavel.parser.service.ProductService;
+import com.grigoryev.parser.service.ProductService;
+import com.grigoryev.parser.model.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
