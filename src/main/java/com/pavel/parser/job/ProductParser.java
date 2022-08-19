@@ -31,7 +31,7 @@ public class ProductParser {
             try {
                 Document document = Jsoup.connect(url)
                         .userAgent("Chrome")
-                        .timeout(5000)
+                        .timeout(30000)
                         .referrer("https://google.com")
                         .get();
 
@@ -50,7 +50,6 @@ public class ProductParser {
                             product.setAmount(amount);
                             product.setPriceBYN(price);
                             productService.save(product);
-                            log.info(String.valueOf(product));
                         }
                     }
                 }

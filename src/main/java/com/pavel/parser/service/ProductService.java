@@ -17,6 +17,7 @@ public interface ProductService {
 
     List<Product> findByNameStartsWith(String name);
 
-    List<Product> findByPriceBYN(String priceBYN);
+    List<Product> findByManufacturer(String manufacturer);
 
+    void deleteById(Long id);
 }

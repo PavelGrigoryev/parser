@@ -10,6 +10,21 @@ Accept: application/json
 GET http://localhost:8080/products/findByNameStartsWith/Ручка
 Accept: application/json
 
-###получения продукта по конкретной цене
-GET http://localhost:8080/products/findByPriceBYN/5.99
+###получения продукта по производителю
+GET http://localhost:8080/products/findByManufacturer/Apecs
 Accept: application/json
+
+###добавление нового продукта
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "name": "Волшебный ящик, Grey",
+  "manufacturer": "PavelCompany",
+  "amount": "шт",
+  "priceBYN": "300.99"
+}
+
+###удаление продукта по id
+DELETE http://localhost:8080/products/801
+Content-Type: application/json

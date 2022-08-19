@@ -3,10 +3,9 @@ package com.pavel.parser.controller;
 import com.pavel.parser.model.Product;
 import com.pavel.parser.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,24 +17,36 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
+    @PostMapping
+    public ResponseEntity<String> save(@RequestBody Product product) {
+        productService.save(product);
+        return new ResponseEntity<>("Товар с именем \"" + product.getName() + "\" сохранён в базу данных под ID " +
+                product.getId(), HttpStatus.CREATED);
+    }
+
     @GetMapping
-    public List<Product> findAll() {
-        return productService.findAll();
+    public ResponseEntity<List<Product>> findAll() {
+        return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
-    public Optional<Product> findById(@PathVariable("id") Long id) {
-        return productService.findById(id);
+    public ResponseEntity<Optional<Product>> findById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/findByNameStartsWith/{name}")
-    public List<Product> findByNameStartsWith(@PathVariable("name") String name) {
-        return productService.findByNameStartsWith(name);
+    public ResponseEntity<List<Product>> findByNameStartsWith(@PathVariable("name") String name) {
+        return new ResponseEntity<>(productService.findByNameStartsWith(name), HttpStatus.OK);
     }
 
-    @GetMapping("/findByPriceBYN/{priceBYN}")
-    public List<Product> findByPriceBYN(@PathVariable("priceBYN") String priceBYN) {
-        return productService.findByPriceBYN(priceBYN);
+    @GetMapping("/findByManufacturer/{manufacturer}")
+    public ResponseEntity<List<Product>> findByManufacturer(@PathVariable("manufacturer") String manufacturer) {
+        return new ResponseEntity<>(productService.findByManufacturer(manufacturer), HttpStatus.OK);
     }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteById(@PathVariable("id") Long id) {
+        productService.deleteById(id);
+        return new ResponseEntity<>("Продукт с ID " + id + " был удалён", HttpStatus.OK);
+    }
 }
