@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ProductExceptionHandler {
 
-    @ExceptionHandler
+    @ExceptionHandler(NoSuchProductException.class)
     public ResponseEntity<ProductIncorrectData> noSuchProductException(NoSuchProductException exception) {
         ProductIncorrectData data = new ProductIncorrectData();
         data.setInfo(exception.getMessage());

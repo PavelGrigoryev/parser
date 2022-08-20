@@ -1,7 +1,7 @@
 package com.grigoryev.parser.job;
 
+import com.grigoryev.parser.model.ProductEntity;
 import com.grigoryev.parser.service.ProductService;
-import com.grigoryev.parser.model.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,7 +19,7 @@ import java.io.IOException;
 public class ProductParser {
 
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
     @Transactional
     @Scheduled(fixedDelay = 600000)
@@ -44,12 +44,12 @@ public class ProductParser {
                         String amount = element.select("div.td_nalich").get(i).text();
                         String price = element.select("div.td_price").get(i).text();
                         if (Boolean.FALSE.equals(productService.isExist(name))) {
-                            Product product = new Product();
-                            product.setName(name);
-                            product.setManufacturer(manufacturer);
-                            product.setAmount(amount);
-                            product.setPriceBYN(price);
-                            productService.save(product);
+                            ProductEntity productEntity = new ProductEntity();
+                            productEntity.setName(name);
+                            productEntity.setManufacturer(manufacturer);
+                            productEntity.setAmount(amount);
+                            productEntity.setPriceBYN(price);
+                            productService.save(productEntity);
                         }
                     }
                 }

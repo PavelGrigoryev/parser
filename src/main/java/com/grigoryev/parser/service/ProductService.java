@@ -1,23 +1,23 @@
 package com.grigoryev.parser.service;
 
-import com.grigoryev.parser.model.Product;
+import com.grigoryev.parser.model.ProductEntity;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
 
-    void save(Product product);
+    void save(ProductEntity productEntity);
 
     Boolean isExist(String productName);
 
-    List<Product> findAll();
+    List<ProductEntity> findAll();
 
-    Optional<Product> findById(Long id);
+    Optional<ProductEntity> findById(Long id);
 
-    List<Product> findByNameStartsWith(String name);
+    List<ProductEntity> findByNameStartsWith(String name);
 
-    List<Product> findByManufacturer(String manufacturer);
+    List<ProductEntity> findByManufacturer(String manufacturer);
 
     void deleteById(Long id);
 }

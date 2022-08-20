@@ -1,9 +1,10 @@
 package com.grigoryev.parser.service.impl;
 
 import com.grigoryev.parser.exception.NoSuchProductException;
-import com.grigoryev.parser.model.Product;
+import com.grigoryev.parser.model.ProductEntity;
 import com.grigoryev.parser.repository.ProductRepository;
 import com.grigoryev.parser.service.ProductService;
+import com.grigoryev.parser.utils.MappingProductUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,19 +17,22 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
+
+    @Autowired
+    private MappingProductUtils mappingProductUtils;
 
     @Override
-    public void save(Product product) {
-        log.info("Сохраняем новый продукт \"{}\" с ценой \"{}\"", product.getName(), product.getPriceBYN());
-        productRepository.save(product);
+    public void save(ProductEntity productEntity) {
+        log.info("Сохраняем новый продукт \"{}\" с ценой \"{}\"", productEntity.getName(), productEntity.getPriceBYN());
+        productRepository.save(productEntity);
     }
 
     @Override
     public Boolean isExist(String name) {
-        List<Product> products = productRepository.findAll();
-        for (Product product : products) {
-            if (product.getName().equals(name)) {
+        List<ProductEntity> productEntities = productRepository.findAll();
+        for (ProductEntity productEntity : productEntities) {
+            if (productEntity.getName().equals(name)) {
                 return true;
             }
         }
@@ -36,14 +40,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll() {
+    public List<ProductEntity> findAll() {
         log.info("Получаем все продукты ...");
         return productRepository.findAll();
     }
 
     @Override
-    public Optional<Product> findById(Long id) {
-        Optional<Product> product = productRepository.findById(id);
+    public Optional<ProductEntity> findById(Long id) {
+        Optional<ProductEntity> product = productRepository.findById(id);
         if (product.isEmpty()) {
             throw new NoSuchProductException("Нет такого продукта с ID " + id + " в базе данных");
         }
@@ -52,20 +56,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findByNameStartsWith(String name) {
+    public List<ProductEntity> findByNameStartsWith(String name) {
         log.info("Получаем продукты по имени начинающемуся с \"{}\" ...", name);
         return productRepository.findByNameStartsWith(name);
     }
 
     @Override
-    public List<Product> findByManufacturer(String manufacturer) {
+    public List<ProductEntity> findByManufacturer(String manufacturer) {
         log.info("Получаем продукты по производителю \"{}\" ...", manufacturer);
         return productRepository.findByManufacturer(manufacturer);
     }
 
     @Override
     public void deleteById(Long id) {
-        Optional<Product> product = productRepository.findById(id);
+        Optional<ProductEntity> product = productRepository.findById(id);
         if (product.isEmpty()) {
             throw new NoSuchProductException("Нет такого продукта с ID " + id + " в базе данных");
         }

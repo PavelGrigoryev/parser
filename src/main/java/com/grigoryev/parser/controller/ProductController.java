@@ -1,7 +1,7 @@
 package com.grigoryev.parser.controller;
 
+import com.grigoryev.parser.model.ProductEntity;
 import com.grigoryev.parser.service.ProductService;
-import com.grigoryev.parser.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,32 +15,32 @@ import java.util.Optional;
 public class ProductController {
 
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
     @PostMapping
-    public ResponseEntity<String> save(@RequestBody Product product) {
-        productService.save(product);
-        return new ResponseEntity<>("Товар с именем \"" + product.getName() + "\" сохранён в базу данных под ID " +
-                product.getId(), HttpStatus.CREATED);
+    public ResponseEntity<String> save(@RequestBody ProductEntity productEntity) {
+        productService.save(productEntity);
+        return new ResponseEntity<>("Товар с именем \"" + productEntity.getName() + "\" сохранён в базу данных под ID " +
+                productEntity.getId(), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> findAll() {
+    public ResponseEntity<List<ProductEntity>> findAll() {
         return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
-    public ResponseEntity<Optional<Product>> findById(@PathVariable("id") Long id) {
+    public ResponseEntity<Optional<ProductEntity>> findById(@PathVariable("id") Long id) {
         return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/findByNameStartsWith/{name}")
-    public ResponseEntity<List<Product>> findByNameStartsWith(@PathVariable("name") String name) {
+    public ResponseEntity<List<ProductEntity>> findByNameStartsWith(@PathVariable("name") String name) {
         return new ResponseEntity<>(productService.findByNameStartsWith(name), HttpStatus.OK);
     }
 
     @GetMapping("/findByManufacturer/{manufacturer}")
-    public ResponseEntity<List<Product>> findByManufacturer(@PathVariable("manufacturer") String manufacturer) {
+    public ResponseEntity<List<ProductEntity>> findByManufacturer(@PathVariable("manufacturer") String manufacturer) {
         return new ResponseEntity<>(productService.findByManufacturer(manufacturer), HttpStatus.OK);
     }
 
