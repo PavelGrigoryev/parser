@@ -1,6 +1,6 @@
 package com.grigoryev.parser.job;
 
-import com.grigoryev.parser.model.ProductEntity;
+import com.grigoryev.parser.dto.ProductDto;
 import com.grigoryev.parser.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -44,12 +44,12 @@ public class ProductParser {
                         String amount = element.select("div.td_nalich").get(i).text();
                         String price = element.select("div.td_price").get(i).text();
                         if (Boolean.FALSE.equals(productService.isExist(name))) {
-                            ProductEntity productEntity = new ProductEntity();
-                            productEntity.setName(name);
-                            productEntity.setManufacturer(manufacturer);
-                            productEntity.setAmount(amount);
-                            productEntity.setPriceBYN(price);
-                            productService.save(productEntity);
+                            ProductDto productDto = new ProductDto();
+                            productDto.setName(name);
+                            productDto.setManufacturer(manufacturer);
+                            productDto.setAmount(amount);
+                            productDto.setPriceBYN(price);
+                            productService.save(productDto);
                         }
                     }
                 }
