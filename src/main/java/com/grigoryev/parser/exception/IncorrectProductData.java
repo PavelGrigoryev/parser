@@ -3,7 +3,7 @@ package com.grigoryev.parser.exception;
 import lombok.Data;
 
 @Data
-public class ProductIncorrectData {
+public class IncorrectProductData {
 
     private String info;
 }

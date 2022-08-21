@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -25,15 +24,23 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(ProductDto productDto) {
         Product product = mappingProductUtils.mapToProductEntity(productDto);
-        log.info("Сохраняем новый продукт \"{}\" с ценой \"{}\"", product.getName(), product.getPriceBYN());
+        log.info("Saving new product \"{}\" with the price \"{}\"", product.getName(), product.getPriceBYN());
         return productRepository.save(product);
     }
 
     @Override
-    public Boolean isExist(String name) {
-        List<Product> productEntities = productRepository.findAll();
-        for (Product product : productEntities) {
-            if (product.getName().equals(name)) {
+    public List<Product> saveAll(List<ProductDto> productDtoList) {
+        log.info("Saving all products ...");
+        return productRepository.saveAll(productDtoList.stream()
+                .map(mappingProductUtils::mapToProductEntity)
+                .toList());
+    }
+
+    @Override
+    public boolean isExist(String productName) {
+        List<Product> products = productRepository.findAll();
+        for (Product product : products) {
+            if (product.getName().equals(productName)) {
                 return true;
             }
         }
@@ -42,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> findAll() {
-        log.info("Получаем все продукты ...");
+        log.info("Finding all products ...");
         return productRepository.findAll().stream()
                 .map(mappingProductUtils::mapToProductDto)
                 .toList();
@@ -50,17 +57,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto findById(Long id) {
-        Optional<Product> product = productRepository.findById(id);
-        if (product.isEmpty()) {
-            throw new NoSuchProductException("Нет такого продукта с ID " + id + " в базе данных");
-        }
-        log.info("Продукт \"{}\" найден", product.get().getName());
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new NoSuchProductException("No such products with ID " + id + " in database"));
+        log.info("The product \"{}\" is found", product.getName());
         return mappingProductUtils.mapToProductDto(productRepository.findById(id).orElse(new Product()));
     }
 
     @Override
     public List<ProductDto> findByNameStartsWith(String name) {
-        log.info("Получаем продукты по имени начинающемуся с \"{}\" ...", name);
+        log.info("Finding products by name starting with \"{}\" ...", name);
         return productRepository.findByNameStartsWith(name).stream()
                 .map(mappingProductUtils::mapToProductDto)
                 .toList();
@@ -68,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> findByManufacturer(String manufacturer) {
-        log.info("Получаем продукты по производителю \"{}\" ...", manufacturer);
+        log.info("Finding products by manufacturer \"{}\" ...", manufacturer);
         return productRepository.findByManufacturer(manufacturer).stream()
                 .map(mappingProductUtils::mapToProductDto)
                 .toList();
@@ -76,11 +81,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteById(Long id) {
-        Optional<Product> product = productRepository.findById(id);
-        if (product.isEmpty()) {
-            throw new NoSuchProductException("Нет такого продукта с ID " + id + " в базе данных");
-        }
-        log.info("Продукт \"{}\" удалён", product.get().getName());
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new NoSuchProductException("No such products with ID " + id + " in database"));
+        log.info("The product \"{}\" has been deleted", product.getName());
         productRepository.deleteById(id);
     }
 }

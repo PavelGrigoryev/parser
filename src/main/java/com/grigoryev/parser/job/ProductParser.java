@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -37,6 +39,8 @@ public class ProductParser {
 
                 Elements divs = document.select("div.table");
 
+                List<ProductDto> productDtoList = new ArrayList<>();
+
                 for (Element element : divs) {
                     for (int i = 0; i < 80; i++) {
                         String name = element.select("div.td_name").get(i).text();
@@ -49,9 +53,10 @@ public class ProductParser {
                             productDto.setManufacturer(manufacturer);
                             productDto.setAmount(amount);
                             productDto.setPriceBYN(price);
-                            productService.save(productDto);
+                            productDtoList.add(productDto);
                         }
                     }
+                    productService.saveAll(productDtoList);
                 }
 
             } catch (IOException e) {
