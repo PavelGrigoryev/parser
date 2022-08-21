@@ -2,12 +2,13 @@ package com.grigoryev.parser.job;
 
 import com.grigoryev.parser.dto.ProductDto;
 import com.grigoryev.parser.service.ProductService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,20 +19,22 @@ import java.util.List;
 
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductParser {
 
     private final ProductService productService;
+
+    @Value("${parsable.url}")
+    private String url;
 
     @Transactional
     @Scheduled(fixedDelay = 600000)
     public void parseProducts() {
 
         for (int j = 1; j < 11; j++) {
-            String url = "https://diy.by/catalog/homeware/?PAGECOUNT=80&FIRSTLEVID=homeware&PAGEN_1=" + j;
 
             try {
-                Document document = Jsoup.connect(url)
+                Document document = Jsoup.connect(url + j)
                         .userAgent("Chrome")
                         .timeout(30000)
                         .referrer("https://google.com")

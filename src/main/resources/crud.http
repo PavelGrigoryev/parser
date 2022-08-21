@@ -3,7 +3,7 @@ GET http://localhost:8080/products
 Accept: application/json
 
 ###получения продукта по id
-GET http://localhost:8080/products/findById/666
+GET http://localhost:8080/products/666
 Accept: application/json
 
 ###получения продукта по имени начинающемуся с...

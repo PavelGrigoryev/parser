@@ -11,7 +11,7 @@ public interface ProductService {
 
     List<Product> saveAll(List<ProductDto> productDtoList);
 
-    boolean isExist(String productName);
+    boolean isExist(String name);
 
     List<ProductDto> findAll();
 

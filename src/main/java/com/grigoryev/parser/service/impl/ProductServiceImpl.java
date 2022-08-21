@@ -37,10 +37,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean isExist(String productName) {
+    public boolean isExist(String name) {
         List<Product> products = productRepository.findAll();
         for (Product product : products) {
-            if (product.getName().equals(productName)) {
+            if (product.getName().equals(name)) {
                 return true;
             }
         }
