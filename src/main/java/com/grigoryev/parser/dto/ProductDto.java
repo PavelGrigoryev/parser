@@ -2,8 +2,6 @@ package com.grigoryev.parser.dto;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 @Data
 public class ProductDto {
 
@@ -17,5 +15,4 @@ public class ProductDto {
 
     private String priceBYN;
 
-    private LocalDateTime localDateTime = LocalDateTime.now();
 }

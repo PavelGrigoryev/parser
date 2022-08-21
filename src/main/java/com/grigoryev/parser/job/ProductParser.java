@@ -2,12 +2,12 @@ package com.grigoryev.parser.job;
 
 import com.grigoryev.parser.dto.ProductDto;
 import com.grigoryev.parser.service.ProductService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +16,10 @@ import java.io.IOException;
 
 @Slf4j
 @Component
+@AllArgsConstructor
 public class ProductParser {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
     @Transactional
     @Scheduled(fixedDelay = 600000)

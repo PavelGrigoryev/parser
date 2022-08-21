@@ -14,7 +14,6 @@ public class MappingProductUtils {
         dto.setManufacturer(product.getManufacturer());
         dto.setAmount(product.getAmount());
         dto.setPriceBYN(product.getPriceBYN());
-        dto.setLocalDateTime(product.getLocalDateTime());
         return dto;
     }
 
@@ -25,7 +24,6 @@ public class MappingProductUtils {
         entity.setManufacturer(dto.getManufacturer());
         entity.setAmount(dto.getAmount());
         entity.setPriceBYN(dto.getPriceBYN());
-        entity.setLocalDateTime(dto.getLocalDateTime());
         return entity;
     }
 }

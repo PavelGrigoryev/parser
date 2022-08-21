@@ -1,12 +1,13 @@
 package com.grigoryev.parser.service;
 
 import com.grigoryev.parser.dto.ProductDto;
+import com.grigoryev.parser.model.Product;
 
 import java.util.List;
 
 public interface ProductService {
 
-    void save(ProductDto productDto);
+    Product save(ProductDto productDto);
 
     Boolean isExist(String productName);
 

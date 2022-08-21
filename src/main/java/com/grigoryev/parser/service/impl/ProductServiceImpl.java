@@ -6,8 +6,8 @@ import com.grigoryev.parser.model.Product;
 import com.grigoryev.parser.repository.ProductRepository;
 import com.grigoryev.parser.service.ProductService;
 import com.grigoryev.parser.utils.MappingProductUtils;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,19 +15,18 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    private MappingProductUtils mappingProductUtils;
+    private final MappingProductUtils mappingProductUtils;
 
     @Override
-    public void save(ProductDto productDto) {
+    public Product save(ProductDto productDto) {
         Product product = mappingProductUtils.mapToProductEntity(productDto);
         log.info("Сохраняем новый продукт \"{}\" с ценой \"{}\"", product.getName(), product.getPriceBYN());
-        productRepository.save(product);
+        return productRepository.save(product);
     }
 
     @Override

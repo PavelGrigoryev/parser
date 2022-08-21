@@ -1,8 +1,9 @@
 package com.grigoryev.parser.controller;
 
 import com.grigoryev.parser.dto.ProductDto;
+import com.grigoryev.parser.model.Product;
 import com.grigoryev.parser.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,17 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/products")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
     @PostMapping
-    public ResponseEntity<String> save(@RequestBody ProductDto productDto) {
-        productService.save(productDto);
-        return new ResponseEntity<>("Товар с именем \"" + productDto.getName() +
-                "\" сохранён в базу данных", HttpStatus.CREATED);
+    public ResponseEntity<Product> save(@RequestBody ProductDto productDto) {
+        return new ResponseEntity<>(productService.save(productDto), HttpStatus.CREATED);
     }
 
     @GetMapping
