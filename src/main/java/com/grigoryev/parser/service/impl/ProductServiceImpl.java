@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> saveAll(List<ProductDto> productDtoList) {
-        log.info("Saving all products ...");
+        log.info("Saving {} products ...", productDtoList.size());
         return productRepository.saveAll(productDtoList.stream()
                 .map(mappingProductUtils::mapToProductEntity)
                 .toList());
@@ -38,8 +38,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> findAll() {
-        log.info("Finding all products ...");
-        return productRepository.findAll().stream()
+        List<Product> productList = productRepository.findAll();
+        log.info("Finding {} products ...", productList.size());
+        return productList.stream()
                 .map(mappingProductUtils::mapToProductDto)
                 .toList();
     }
@@ -62,16 +63,18 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> findByNameStartsWith(String name) {
-        log.info("Finding products by name starting with \"{}\" ...", name);
-        return productRepository.findByNameStartsWith(name).stream()
+        List<Product> productList = productRepository.findByNameStartsWith(name);
+        log.info("Finding {} products by name starting with \"{}\" ...", productList.size(), name);
+        return productList.stream()
                 .map(mappingProductUtils::mapToProductDto)
                 .toList();
     }
 
     @Override
     public List<ProductDto> findByManufacturer(String manufacturer) {
-        log.info("Finding products by manufacturer \"{}\" ...", manufacturer);
-        return productRepository.findByManufacturer(manufacturer).stream()
+        List<Product> productList = productRepository.findByManufacturer(manufacturer);
+        log.info("Finding {} products by manufacturer \"{}\" ...", productList.size(), manufacturer);
+        return productList.stream()
                 .map(mappingProductUtils::mapToProductDto)
                 .toList();
     }
