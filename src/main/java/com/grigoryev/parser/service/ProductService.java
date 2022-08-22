@@ -11,11 +11,11 @@ public interface ProductService {
 
     List<Product> saveAll(List<ProductDto> productDtoList);
 
-    boolean isExist(String name);
-
     List<ProductDto> findAll();
 
     ProductDto findById(Long id);
+
+    List<ProductDto> findByName(String name);
 
     List<ProductDto> findByNameStartsWith(String name);
 

@@ -37,17 +37,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean isExist(String name) {
-        List<Product> products = productRepository.findAll();
-        for (Product product : products) {
-            if (product.getName().equals(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
     public List<ProductDto> findAll() {
         log.info("Finding all products ...");
         return productRepository.findAll().stream()
@@ -61,6 +50,14 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new NoSuchProductException("No such products with ID " + id + " in database"));
         log.info("The product \"{}\" is found", product.getName());
         return mappingProductUtils.mapToProductDto(productRepository.findById(id).orElse(new Product()));
+    }
+
+    @Override
+    public List<ProductDto> findByName(String name) {
+        log.info("Finding products by name - \"{}\" ...", name);
+        return productRepository.findByName(name).stream()
+                .map(mappingProductUtils::mapToProductDto)
+                .toList();
     }
 
     @Override
