@@ -32,7 +32,7 @@ public class ProductParser {
     public void parseProducts() {
 
         for (int j = 1; j < 11; j++) {
-
+            log.info("Parsing page №{} ...", j);
             try {
                 Document document = Jsoup.connect(url + j)
                         .userAgent("Chrome")
