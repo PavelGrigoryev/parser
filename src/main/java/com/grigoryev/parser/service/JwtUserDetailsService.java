@@ -1,6 +1,7 @@
 package com.grigoryev.parser.service;
 
 import com.grigoryev.parser.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -13,14 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class JwtUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
-
-    public JwtUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

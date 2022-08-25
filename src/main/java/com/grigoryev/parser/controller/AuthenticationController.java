@@ -54,14 +54,15 @@ public class AuthenticationController {
                 return ResponseEntity.status(401).body(responseMap);
             }
         } catch (DisabledException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             responseMap.put("message", "User is disabled");
             return ResponseEntity.status(500).body(responseMap);
         } catch (BadCredentialsException e) {
+            log.error(e.getMessage());
             responseMap.put("message", "Invalid Credentials");
             return ResponseEntity.status(401).body(responseMap);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             responseMap.put("message", "Something went wrong");
             return ResponseEntity.status(500).body(responseMap);
         }
