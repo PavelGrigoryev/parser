@@ -40,30 +40,31 @@ public class AuthenticationController {
     public ResponseEntity<?> loginUser(@RequestParam("user_name") String username,
                                        @RequestParam("password") String password) {
         Map<String, Object> responseMap = new HashMap<>();
+        String message = "message";
         try {
             Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             if (auth.isAuthenticated()) {
                 log.info("{} Logged In", username);
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 String token = jwtTokenUtil.generateToken(userDetails);
-                responseMap.put("message", "Logged In : " + username);
+                responseMap.put(message, "Logged In : " + username);
                 responseMap.put("token", token);
                 return ResponseEntity.ok(responseMap);
             } else {
-                responseMap.put("message", "Invalid Credentials");
+                responseMap.put(message, "Invalid Credentials");
                 return ResponseEntity.status(401).body(responseMap);
             }
         } catch (DisabledException e) {
             log.error(e.getMessage());
-            responseMap.put("message", "User is disabled");
+            responseMap.put(message, "User is disabled");
             return ResponseEntity.status(500).body(responseMap);
         } catch (BadCredentialsException e) {
             log.error(e.getMessage());
-            responseMap.put("message", "Invalid Credentials");
+            responseMap.put(message, "Invalid Credentials");
             return ResponseEntity.status(401).body(responseMap);
         } catch (Exception e) {
             log.error(e.getMessage());
-            responseMap.put("message", "Something went wrong");
+            responseMap.put(message, "Something went wrong");
             return ResponseEntity.status(500).body(responseMap);
         }
     }

@@ -3,6 +3,7 @@ package com.grigoryev.parser.controller;
 import com.grigoryev.parser.dto.ProductDto;
 import com.grigoryev.parser.model.Product;
 import com.grigoryev.parser.service.ProductService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@SecurityRequirement(name = "Bearer Authentication")
 @RequestMapping("/products")
 public class ProductController {
 

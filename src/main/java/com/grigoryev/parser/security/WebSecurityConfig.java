@@ -2,6 +2,7 @@ package com.grigoryev.parser.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grigoryev.parser.security.jwt.JwtRequestFilter;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,17 +22,13 @@ import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService jwtUserDetailsService;
 
     private final JwtRequestFilter jwtRequestFilter;
-
-    public WebSecurityConfig(UserDetailsService jwtUserDetailsService, JwtRequestFilter jwtRequestFilter) {
-        this.jwtUserDetailsService = jwtUserDetailsService;
-        this.jwtRequestFilter = jwtRequestFilter;
-    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -50,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/auth/*")
+                .antMatchers("/auth/*", "/swagger-ui/**", "/pavel-openapi/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
