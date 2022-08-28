@@ -1,9 +1,6 @@
 package com.grigoryev.parser.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -23,15 +20,10 @@ import java.util.Map;
 @Slf4j
 public class UserController {
 
-    @Operation(summary = "Get authenticated userName", tags = "user")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Found authenticated userName",
-                    content = {
-                            @Content(mediaType = "application/json")
-                    })
-    })
+    @Operation(
+            summary = "Get authenticated userName", tags = "User",
+            description = "I wonder what is the name of the authorized user?"
+    )
     @GetMapping
     public Map<String, Object> getUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
