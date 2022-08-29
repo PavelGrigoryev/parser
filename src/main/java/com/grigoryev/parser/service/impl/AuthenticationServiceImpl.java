@@ -4,7 +4,6 @@ import com.grigoryev.parser.model.User;
 import com.grigoryev.parser.repository.UserRepository;
 import com.grigoryev.parser.security.jwt.JwtTokenUtil;
 import com.grigoryev.parser.service.AuthenticationService;
-import com.grigoryev.parser.service.JwtUserDetailsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;

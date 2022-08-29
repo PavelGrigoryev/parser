@@ -1,6 +1,6 @@
 package com.grigoryev.parser.security.jwt;
 
-import com.grigoryev.parser.service.JwtUserDetailsService;
+import com.grigoryev.parser.service.impl.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

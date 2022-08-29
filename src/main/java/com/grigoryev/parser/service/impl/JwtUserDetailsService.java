@@ -1,4 +1,4 @@
-package com.grigoryev.parser.service;
+package com.grigoryev.parser.service.impl;
 
 import com.grigoryev.parser.repository.UserRepository;
 import lombok.AllArgsConstructor;
