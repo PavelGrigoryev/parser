@@ -27,11 +27,17 @@ public class ProductParser {
     @Value("${parsable.url}")
     private String url;
 
+    @Value("${number.of.pages}")
+    private int numberOfPages;
+
+    @Value("${number.of.products}")
+    private int numberOfProducts;
+
     @Transactional
     @Scheduled(fixedDelay = 600000)
     public void parseProducts() {
 
-        for (int j = 1; j < 11; j++) {
+        for (int j = 1; j < numberOfPages; j++) {
             log.info("Parsing page №{} ...", j);
             try {
                 Document document = Jsoup.connect(url + j)
@@ -45,7 +51,7 @@ public class ProductParser {
                 List<ProductDto> productDtoList = new ArrayList<>();
 
                 for (Element element : divs) {
-                    for (int i = 0; i < 80; i++) {
+                    for (int i = 0; i < numberOfProducts; i++) {
                         String name = element.select("div.td_name").get(i).text();
                         String manufacturer = element.select("div.td_proizv").get(i).text();
                         String amount = element.select("div.td_nalich").get(i).text();
