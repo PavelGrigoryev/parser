@@ -29,9 +29,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> saveAll(List<ProductDto> productDtoList) {
+    public void saveAll(List<ProductDto> productDtoList) {
         log.info("Saving {} products ...", productDtoList.size());
-        return productRepository.saveAll(productDtoList.stream()
+        productRepository.saveAll(productDtoList.stream()
                 .map(mappingProductUtils::mapToProductEntity)
                 .toList());
     }
@@ -46,19 +46,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto findById(Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new NoSuchProductException("No such products with ID " + id + " in database"));
+    public ProductDto findByName(String name) {
+        Product product = productRepository.findById(name)
+                .orElseThrow(() -> new NoSuchProductException("No such products with Name " + name + " in database"));
         log.info("The product \"{}\" is found", product.getName());
-        return mappingProductUtils.mapToProductDto(productRepository.findById(id).orElse(new Product()));
-    }
-
-    @Override
-    public List<ProductDto> findByName(String name) {
-        log.info("Finding products by name - \"{}\" ...", name);
-        return productRepository.findByName(name).stream()
-                .map(mappingProductUtils::mapToProductDto)
-                .toList();
+        return mappingProductUtils.mapToProductDto(productRepository.findById(name).orElse(new Product()));
     }
 
     @Override
@@ -80,10 +72,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new NoSuchProductException("No such products with ID " + id + " in database"));
+    public void deleteByName(String name) {
+        Product product = productRepository.findById(name)
+                .orElseThrow(() -> new NoSuchProductException("No such products with Name " + name + " in database"));
         log.info("The product \"{}\" has been deleted", product.getName());
-        productRepository.deleteById(id);
+        productRepository.deleteById(name);
     }
 }

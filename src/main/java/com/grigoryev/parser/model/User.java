@@ -1,22 +1,24 @@
 package com.grigoryev.parser.model;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("users")
+import javax.persistence.*;
+
+@Entity
 @Data
+@Table(name = "users")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String userName;
 
     private String firstName;
 
     private String lastName;
 
-    @Indexed(unique = true)
     private String email;
 
     private String password;

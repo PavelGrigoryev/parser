@@ -41,11 +41,11 @@ public class AuthenticationController {
     @Operation(
             summary = "Register and get jwt token", tags = "Authentication", description = "Let's register quickly",
             parameters = {
-                    @Parameter(name = "first_name", description = "Enter firstName here", example = "Jerry"),
-                    @Parameter(name = "last_name", description = "Enter lastName here", example = "Afro"),
-                    @Parameter(name = "user_name", description = "Enter userName here", example = "Jigsaw"),
-                    @Parameter(name = "email", description = "Enter email here", example = "jigsaw@example.com"),
-                    @Parameter(name = "password", description = "Enter password here", example = "321sec")
+                    @Parameter(name = "first_name", description = "Enter firstName here", example = "Pavel"),
+                    @Parameter(name = "last_name", description = "Enter lastName here", example = "Grigoryev"),
+                    @Parameter(name = "user_name", description = "Enter userName here", example = "Undeadsanta"),
+                    @Parameter(name = "email", description = "Enter email here", example = "DeadManWalking@example.com"),
+                    @Parameter(name = "password", description = "Enter password here", example = "abc123")
             }
     )
     @PostMapping("/register")

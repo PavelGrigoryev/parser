@@ -56,14 +56,12 @@ public class ProductParser {
                         String manufacturer = element.select("div.td_proizv").get(i).text();
                         String amount = element.select("div.td_nalich").get(i).text();
                         String price = element.select("div.td_price").get(i).text();
-                        if (productService.findByName(name).isEmpty()) {
-                            ProductDto productDto = new ProductDto();
-                            productDto.setName(name);
-                            productDto.setManufacturer(manufacturer);
-                            productDto.setAmount(amount);
-                            productDto.setPriceBYN(price);
-                            productDtoList.add(productDto);
-                        }
+                        ProductDto productDto = new ProductDto();
+                        productDto.setName(name);
+                        productDto.setManufacturer(manufacturer);
+                        productDto.setAmount(amount);
+                        productDto.setPriceBYN(price);
+                        productDtoList.add(productDto);
                     }
                     productService.saveAll(productDtoList);
                 }
