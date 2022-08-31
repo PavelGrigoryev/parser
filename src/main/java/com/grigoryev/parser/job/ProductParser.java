@@ -30,9 +30,6 @@ public class ProductParser {
     @Value("${number.of.pages}")
     private int numberOfPages;
 
-    @Value("${number.of.products}")
-    private int numberOfProducts;
-
     @Transactional
     @Scheduled(fixedDelay = 600000)
     public void parseProducts() {
@@ -51,7 +48,7 @@ public class ProductParser {
                 List<ProductDto> productDtoList = new ArrayList<>();
 
                 for (Element element : divs) {
-                    for (int i = 0; i < numberOfProducts; i++) {
+                    for (int i = 0; i < element.select("div.td_name").size(); i++) {
                         String name = element.select("div.td_name").get(i).text();
                         String manufacturer = element.select("div.td_proizv").get(i).text();
                         String amount = element.select("div.td_nalich").get(i).text();
