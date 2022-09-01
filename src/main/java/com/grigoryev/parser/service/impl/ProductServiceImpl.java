@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto findByName(String name) {
+    public ProductDto findByName(Long name) {
         Product product = productRepository.findById(name)
                 .orElseThrow(() -> new NoSuchProductException("No such products with Name " + name + " in database"));
         log.info("The product \"{}\" is found", product.getName());
@@ -72,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteByName(String name) {
+    public void deleteByName(Long name) {
         Product product = productRepository.findById(name)
                 .orElseThrow(() -> new NoSuchProductException("No such products with Name " + name + " in database"));
         log.info("The product \"{}\" has been deleted", product.getName());

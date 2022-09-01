@@ -48,7 +48,7 @@ public class ProductController {
             parameters = @Parameter(name = "name", description = "Enter name here", example = "Ручка деревянная №1, белая")
     )
     @GetMapping("{name}")
-    public ResponseEntity<ProductDto> findByName(@PathVariable("name") String name) {
+    public ResponseEntity<ProductDto> findByName(@PathVariable("name") Long name) {
         return new ResponseEntity<>(productService.findByName(name), HttpStatus.OK);
     }
 
@@ -77,7 +77,7 @@ public class ProductController {
             parameters = @Parameter(name = "name", description = "Enter name here", example = "Ручка деревянная №1, белая")
     )
     @DeleteMapping("{name}")
-    public ResponseEntity<String> deleteByName(@PathVariable("name") String name) {
+    public ResponseEntity<String> deleteByName(@PathVariable("name") Long name) {
         productService.deleteByName(name);
         return new ResponseEntity<>("The product with ID " + name + " has been deleted", HttpStatus.OK);
     }
