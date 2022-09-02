@@ -3,6 +3,7 @@ package com.grigoryev.parser.model;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ public class Product {
     @Id
     private long id;
 
+    @Indexed(unique = true)
     private String name;
 
     private String manufacturer;

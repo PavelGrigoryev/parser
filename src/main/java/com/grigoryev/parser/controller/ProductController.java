@@ -44,12 +44,12 @@ public class ProductController {
     }
 
     @Operation(
-            summary = "Find one product by {name}", tags = "Products", description = "Let's find our product by name",
-            parameters = @Parameter(name = "name", description = "Enter name here", example = "Ручка деревянная №1, белая")
+            summary = "Find one product by {id}", tags = "Products", description = "Let's find our product by id",
+            parameters = @Parameter(name = "id", description = "Enter id here", example = "333")
     )
-    @GetMapping("{name}")
-    public ResponseEntity<ProductDto> findByName(@PathVariable("name") Long name) {
-        return new ResponseEntity<>(productService.findByName(name), HttpStatus.OK);
+    @GetMapping("{id}")
+    public ResponseEntity<ProductDto> findById(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
     }
 
     @Operation(
@@ -65,7 +65,7 @@ public class ProductController {
     @Operation(
             summary = "Find all products by {manufacturer}", tags = "Products",
             description = "Let's find our products by manufacturer",
-            parameters = @Parameter(name = "manufacturer", description = "Enter manufacturer here", example = "ARNI")
+            parameters = @Parameter(name = "manufacturer", description = "Enter manufacturer here", example = "APECS")
     )
     @GetMapping("/findByManufacturer/{manufacturer}")
     public ResponseEntity<List<ProductDto>> findByManufacturer(@PathVariable("manufacturer") String manufacturer) {
@@ -73,12 +73,12 @@ public class ProductController {
     }
 
     @Operation(
-            summary = "Delete one product by {name}", tags = "Products", description = "Let's delete our product by name",
-            parameters = @Parameter(name = "name", description = "Enter name here", example = "Ручка деревянная №1, белая")
+            summary = "Delete one product by {id}", tags = "Products", description = "Let's delete our product by id",
+            parameters = @Parameter(name = "id", description = "Enter id here", example = "401")
     )
-    @DeleteMapping("{name}")
-    public ResponseEntity<String> deleteByName(@PathVariable("name") Long name) {
-        productService.deleteByName(name);
-        return new ResponseEntity<>("The product with ID " + name + " has been deleted", HttpStatus.OK);
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteById(@PathVariable("id") Long id) {
+        productService.deleteById(id);
+        return new ResponseEntity<>("The product with ID " + id + " has been deleted", HttpStatus.OK);
     }
 }

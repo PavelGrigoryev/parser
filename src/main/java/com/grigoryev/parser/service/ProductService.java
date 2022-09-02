@@ -13,11 +13,13 @@ public interface ProductService {
 
     List<ProductDto> findAll();
 
-    ProductDto findByName(Long name);
+    ProductDto findById(Long id);
+
+    List<ProductDto> findByName(String name);
 
     List<ProductDto> findByNameStartsWith(String name);
 
     List<ProductDto> findByManufacturer(String manufacturer);
 
-    void deleteByName(Long name);
+    void deleteById(Long id);
 }

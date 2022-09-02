@@ -46,11 +46,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto findByName(Long name) {
-        Product product = productRepository.findById(name)
-                .orElseThrow(() -> new NoSuchProductException("No such products with Name " + name + " in database"));
+    public ProductDto findById(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new NoSuchProductException("No such products with ID " + id + " in database"));
         log.info("The product \"{}\" is found", product.getName());
-        return mappingProductUtils.mapToProductDto(productRepository.findById(name).orElse(new Product()));
+        return mappingProductUtils.mapToProductDto(productRepository.findById(id).orElse(new Product()));
+    }
+
+    @Override
+    public List<ProductDto> findByName(String name) {
+        log.info("Finding products by name - \"{}\" ...", name);
+        return productRepository.findByName(name).stream()
+                .map(mappingProductUtils::mapToProductDto)
+                .toList();
     }
 
     @Override
@@ -72,10 +80,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteByName(Long name) {
-        Product product = productRepository.findById(name)
-                .orElseThrow(() -> new NoSuchProductException("No such products with Name " + name + " in database"));
+    public void deleteById(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new NoSuchProductException("No such products with ID " + id + " in database"));
         log.info("The product \"{}\" has been deleted", product.getName());
-        productRepository.deleteById(name);
+        productRepository.deleteById(id);
     }
 }
