@@ -58,7 +58,7 @@ public class ProductParser {
                             productDto.setName(name);
                             productDto.setManufacturer(manufacturer);
                             productDto.setAmount(amount);
-                            productDto.setPriceBYN(price);
+                            productDto.setPriceBYN(Double.valueOf(price));
                             productDtoList.add(productDto);
                         }
                     }

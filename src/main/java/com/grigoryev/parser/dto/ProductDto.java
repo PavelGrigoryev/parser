@@ -13,6 +13,6 @@ public class ProductDto {
 
     private String amount;
 
-    private String priceBYN;
+    private Double priceBYN;
 
 }
