@@ -1,14 +1,16 @@
 package com.grigoryev.parser.service.impl;
 
+import com.grigoryev.parser.dto.ProductDto;
+import com.grigoryev.parser.exception.NoSuchProductException;
 import com.grigoryev.parser.model.Product;
 import com.grigoryev.parser.repository.ProductRepository;
-import com.grigoryev.parser.service.ProductService;
 import com.grigoryev.parser.utils.MappingProductUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -32,7 +34,6 @@ class ProductServiceImplTest {
 
     private MappingProductUtils mappingProductUtils;
 
-
     @BeforeEach
     void init() {
         productRepository = mock(ProductRepository.class);
@@ -44,9 +45,44 @@ class ProductServiceImplTest {
     void findAll() {
         Product product = getMockedProduct();
         doReturn(List.of(product)).when(productRepository).findAll();
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productServiceImpl.findAll().stream().map(mappingProductUtils::mapToProductEntity).toList();
         assertEquals(1, products.size());
         assertEquals(product, products.get(0));
+    }
+
+    @Test
+    @DisplayName("check if error throws when Product is not found")
+    void findById_throws_exception() {
+        doThrow(new NoSuchProductException("Product hasn't found"))
+                .when(productRepository).findById(PRODUCT_ID);
+
+        Exception exception = assertThrows(NoSuchProductException.class, () -> productServiceImpl.findById(PRODUCT_ID));
+
+        String expectedMessage = "Product hasn't found";
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("check if Product returns when it is found")
+    void findById_returns_product() {
+        ProductDto mockedProduct = getMockedProductDto();
+        doReturn(Optional.of(mockedProduct))
+                .when(productRepository).findById(PRODUCT_ID);
+
+        ProductDto product = productServiceImpl.findById(PRODUCT_ID);
+
+        assertEquals(mockedProduct, product);
+    }
+
+    @Test
+    @DisplayName("check if Product deletes by id")
+    void deleteById() {
+        doNothing().when(productRepository).deleteById(PRODUCT_ID);
+        productServiceImpl.deleteById(PRODUCT_ID);
+
+        verify(productRepository, times(1)).deleteById(PRODUCT_ID);
+        verify(productRepository, times(1)).deleteById(anyLong());
+        verify(productRepository, never()).findById(anyLong());
     }
 
     private Product getMockedProduct() {
@@ -57,5 +93,15 @@ class ProductServiceImplTest {
         product.setManufacturer(PRODUCT_MANUFACTURER);
         product.setPriceBYN(PRODUCT_PRICE_BYN);
         return product;
+    }
+
+    private ProductDto getMockedProductDto() {
+        ProductDto productDto = new ProductDto();
+        productDto.setId(PRODUCT_ID);
+        productDto.setName(PRODUCT_NAME);
+        productDto.setAmount(PRODUCT_AMOUNT);
+        productDto.setManufacturer(PRODUCT_MANUFACTURER);
+        productDto.setPriceBYN(PRODUCT_PRICE_BYN);
+        return productDto;
     }
 }
