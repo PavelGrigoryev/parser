@@ -2,37 +2,26 @@ package com.grigoryev.parser.job;
 
 import com.grigoryev.parser.dto.ProductDto;
 import com.grigoryev.parser.service.ProductService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
+@AllArgsConstructor
 @Component
-@RequiredArgsConstructor
 public class ProductParser {
 
     private final ProductService productService;
 
-    @Value("${parsable.url}")
-    private String url;
-
-    @Value("${number.of.pages}")
-    private int numberOfPages;
-
-    @Transactional
-    @Scheduled(fixedDelay = 600000)
-    public void parseProducts() {
+    public void parseProducts(String url, Integer numberOfPages) {
 
         for (int j = 1; j < numberOfPages; j++) {
             log.info("Parsing page №{} ...", j);
@@ -58,7 +47,7 @@ public class ProductParser {
                             productDto.setName(name);
                             productDto.setManufacturer(manufacturer);
                             productDto.setAmount(amount);
-                            productDto.setPriceBYN(Double.valueOf(price));
+                            productDto.setPriceBYN(price);
                             productDtoList.add(productDto);
                             log.warn("Adding new product : " + productDto.getName());
                         }
@@ -71,4 +60,5 @@ public class ProductParser {
             }
         }
     }
+
 }

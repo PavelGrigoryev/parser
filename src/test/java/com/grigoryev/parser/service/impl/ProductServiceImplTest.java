@@ -26,7 +26,7 @@ class ProductServiceImplTest {
 
     private static final String PRODUCT_MANUFACTURER = "AKS";
 
-    private static final Double PRODUCT_PRICE_BYN = 6.39;
+    private static final String PRODUCT_PRICE_BYN = "6.39";
 
     private ProductServiceImpl productServiceImpl;
 
@@ -43,11 +43,11 @@ class ProductServiceImplTest {
     @Test
     @DisplayName("check findAll method")
     void findAll() {
-        Product product = getMockedProduct();
-        doReturn(List.of(product)).when(productRepository).findAll();
-        List<Product> products = productServiceImpl.findAll().stream().map(mappingProductUtils::mapToProductEntity).toList();
-        assertEquals(1, products.size());
-        assertEquals(product, products.get(0));
+        ProductDto productDto = getMockedProductDto();
+        doReturn(List.of(productDto)).when(productRepository).findAll();
+        List<ProductDto> productDtoList = productServiceImpl.findAll();
+        assertEquals(1, productDtoList.size());
+        assertEquals(productDto, productDtoList.get(0));
     }
 
     @Test

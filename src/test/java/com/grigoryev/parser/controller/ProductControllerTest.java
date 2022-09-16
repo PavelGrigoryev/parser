@@ -41,7 +41,7 @@ class ProductControllerTest {
 
     private static final String PRODUCT_MANUFACTURER = "AKS";
 
-    private static final Double PRODUCT_PRICE_BYN = 6.39;
+    private static final String PRODUCT_PRICE_BYN = "6.39";
 
     @Autowired
     MockMvc mockMvc;
@@ -66,6 +66,7 @@ class ProductControllerTest {
                     .andExpect(status().isOk())
                     .andExpect(content().json("[]"));
         }
+
         @Test
         @DisplayName("check display name with filled list of elements")
         void findAll_with_filled_values() throws Exception {
@@ -80,12 +81,13 @@ class ProductControllerTest {
                                     "\"name\": \"Накладка для мебельных петель с подсветкой (накладка,крепление,батарейка)\"," +
                                     "\"amount\": \"комп.\"," +
                                     " \"manufacturer\": \"AKS\"," +
-                                    " \"priceBYN\": 6.39" +
+                                    " \"priceBYN\": \"6.39\"" +
                                     "}" +
                                     "]"
                     ));
         }
     }
+
     @Nested
     class FindByIdTest {
         @Test
@@ -101,11 +103,12 @@ class ProductControllerTest {
                                     "\"name\": \"Накладка для мебельных петель с подсветкой (накладка,крепление,батарейка)\"," +
                                     "\"amount\": \"комп.\"," +
                                     " \"manufacturer\": \"AKS\"," +
-                                    " \"priceBYN\": 6.39" +
+                                    " \"priceBYN\": \"6.39\"" +
                                     "}"
                     ));
         }
     }
+
     @Nested
     class SaveTests {
         @Test
@@ -121,7 +124,7 @@ class ProductControllerTest {
                                             "\"name\": \"Накладка для мебельных петель с подсветкой (накладка,крепление,батарейка)\"," +
                                             "\"amount\": \"комп.\"," +
                                             " \"manufacturer\": \"AKS\"," +
-                                            " \"priceBYN\": 6.39" +
+                                            " \"priceBYN\": \"6.39\"" +
                                             "}"
                             )
                             .contentType(MediaType.APPLICATION_JSON))
@@ -132,10 +135,11 @@ class ProductControllerTest {
                                     "\"name\": \"Накладка для мебельных петель с подсветкой (накладка,крепление,батарейка)\"," +
                                     "\"amount\": \"комп.\"," +
                                     " \"manufacturer\": \"AKS\"," +
-                                    " \"priceBYN\": 6.39" +
+                                    " \"priceBYN\": \"6.39\"" +
                                     "}"
                     ));
         }
+
         @Test
         @DisplayName("check save method with bad request")
         void save_with_bad_request() throws Exception {
@@ -147,6 +151,7 @@ class ProductControllerTest {
                     .andExpect(status().isBadRequest());
         }
     }
+
     @Nested
     class DeleteTest {
         @Test
@@ -156,6 +161,7 @@ class ProductControllerTest {
                     .andExpect(status().isOk());
         }
     }
+
     private Product getMockedProduct() {
         Product product = new Product();
         product.setId(PRODUCT_ID);
@@ -165,6 +171,7 @@ class ProductControllerTest {
         product.setPriceBYN(PRODUCT_PRICE_BYN);
         return product;
     }
+
     private ProductDto getMockedProductDto() {
         ProductDto productDto = new ProductDto();
         productDto.setId(PRODUCT_ID);

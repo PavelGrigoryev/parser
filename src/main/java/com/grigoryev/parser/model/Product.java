@@ -25,7 +25,7 @@ public class Product {
 
     private String amount;
 
-    private Double priceBYN;
+    private String priceBYN;
 
     private LocalDateTime localDateTime = LocalDateTime.now();
 }
