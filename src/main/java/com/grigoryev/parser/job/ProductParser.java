@@ -60,6 +60,7 @@ public class ProductParser {
                             productDto.setAmount(amount);
                             productDto.setPriceBYN(Double.valueOf(price));
                             productDtoList.add(productDto);
+                            log.warn("Adding new product : " + productDto.getName());
                         }
                     }
                     productService.saveAll(productDtoList);
