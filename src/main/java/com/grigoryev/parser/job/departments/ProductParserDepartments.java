@@ -27,6 +27,18 @@ public class ProductParserDepartments {
     @Value("${number.of.homeWare.pages}")
     private int homeWareNumberOfPages;
 
+    @Value("${parsable.instrument&electrical.url}")
+    private String instrumentAndElectricalUrl;
+
+    @Value("${number.of.instrument&electrical.pages}")
+    private int instrumentAndElectricalNumberOfPages;
+
+    @Value("${parsable.woodWork.url}")
+    private String woodWorkUrl;
+
+    @Value("${number.of.woodWork.pages}")
+    private int woodWorkNumberOfPages;
+
     public void parseBuildingMaterialsProducts() {
         productParser.parseProducts(buildingMaterialsUrl, buildingMaterialsNumberOfPages);
     }
@@ -35,4 +47,11 @@ public class ProductParserDepartments {
         productParser.parseProducts(homeWareUrl, homeWareNumberOfPages);
     }
 
+    public void parseInstrumentAndElectricalProducts() {
+        productParser.parseProducts(instrumentAndElectricalUrl, instrumentAndElectricalNumberOfPages);
+    }
+
+    public void parseWoodWorkProducts() {
+        productParser.parseProducts(woodWorkUrl, woodWorkNumberOfPages);
+    }
 }

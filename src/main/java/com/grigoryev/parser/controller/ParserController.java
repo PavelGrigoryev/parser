@@ -33,4 +33,18 @@ public class ParserController {
         productParserDepartments.parseHomeWareProducts();
         return new ResponseEntity<>("A few moments later! We parsed HomeWare!", HttpStatus.OK);
     }
+
+    @Operation(summary = "Parse Instrument&Electrical", tags = "Parser", description = "Let's parse Instrument&Electrical products. This may take some time!")
+    @GetMapping("/instrumentAndElectrical")
+    public ResponseEntity<String> parseInstrumentAndElectricalProducts() {
+        productParserDepartments.parseInstrumentAndElectricalProducts();
+        return new ResponseEntity<>("A few moments later! We parsed Instrument&Electrical!", HttpStatus.OK);
+    }
+
+    @Operation(summary = "Parse WoodWork", tags = "Parser", description = "Let's parse WoodWork products. This may take some time!")
+    @GetMapping("/woodWork")
+    public ResponseEntity<String> parseWoodWorkProducts() {
+        productParserDepartments.parseWoodWorkProducts();
+        return new ResponseEntity<>("A few moments later! We parsed WoodWork!", HttpStatus.OK);
+    }
 }
