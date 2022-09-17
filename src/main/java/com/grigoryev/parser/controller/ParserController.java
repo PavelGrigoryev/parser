@@ -47,4 +47,39 @@ public class ParserController {
         productParserDepartments.parseWoodWorkProducts();
         return new ResponseEntity<>("A few moments later! We parsed WoodWork!", HttpStatus.OK);
     }
+
+    @Operation(summary = "Parse Sanitary", tags = "Parser", description = "Let's parse Sanitary products. This may take some time!")
+    @GetMapping("/sanitary")
+    public ResponseEntity<String> parseSanitaryProducts() {
+        productParserDepartments.parseSanitaryProducts();
+        return new ResponseEntity<>("A few moments later! We parsed Sanitary!", HttpStatus.OK);
+    }
+
+    @Operation(summary = "Parse Flooring", tags = "Parser", description = "Let's parse Flooring products. This may take some time!")
+    @GetMapping("/flooring")
+    public ResponseEntity<String> parseFlooringProducts() {
+        productParserDepartments.parseFlooringProducts();
+        return new ResponseEntity<>("A few moments later! We parsed Flooring!", HttpStatus.OK);
+    }
+
+    @Operation(summary = "Parse Paint", tags = "Parser", description = "Let's parse Paint products. This may take some time!")
+    @GetMapping("/paint")
+    public ResponseEntity<String> parsePaintProducts() {
+        productParserDepartments.parsePaintProducts();
+        return new ResponseEntity<>("A few moments later! We parsed Paint!", HttpStatus.OK);
+    }
+
+    @Operation(summary = "Parse DecorativeMaterials", tags = "Parser", description = "Let's parse DecorativeMaterials products. This may take some time!")
+    @GetMapping("/decorativeMaterials")
+    public ResponseEntity<String> parseDecorativeMaterialsProducts() {
+        productParserDepartments.parseDecorativeMaterialsProducts();
+        return new ResponseEntity<>("A few moments later! We parsed DecorativeMaterials!", HttpStatus.OK);
+    }
+
+    @Operation(summary = "Parse Gardening", tags = "Parser", description = "Let's parse Gardening products. This may take some time!")
+    @GetMapping("/gardening")
+    public ResponseEntity<String> parseGardeningProducts() {
+        productParserDepartments.parseGardeningProducts();
+        return new ResponseEntity<>("A few moments later! We parsed Gardening!", HttpStatus.OK);
+    }
 }
