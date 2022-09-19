@@ -37,10 +37,22 @@ public class ProductController {
         return new ResponseEntity<>(productService.save(productDto), HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Find all products", tags = "Products", description = "Let's find all the products")
+    @Operation(
+            summary = "Find all products", tags = "Products", description = "Let's find all the products with pagination",
+            parameters = {
+                    @Parameter(name = "page_number", description = "Enter a page number here", example = "0"),
+                    @Parameter(name = "page_size", description = "Enter a page size here", example = "80"),
+                    @Parameter(name = "sort_by", description = "Enter by what value you want to sort the page: id, name," +
+                            " manufacturer, priceBYN", example = "id")
+            }
+    )
     @GetMapping
-    public ResponseEntity<List<ProductDto>> findAll() {
-        return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<ProductDto>> findAll(
+            @RequestParam("page_number") int page,
+            @RequestParam("page_size") int size,
+            @RequestParam("sort_by") String sort
+            ) {
+        return new ResponseEntity<>(productService.findAll(page, size, sort), HttpStatus.OK);
     }
 
     @Operation(

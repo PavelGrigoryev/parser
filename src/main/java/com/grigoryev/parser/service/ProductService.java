@@ -11,7 +11,7 @@ public interface ProductService {
 
     void saveAll(List<ProductDto> productDtoList);
 
-    List<ProductDto> findAll();
+    List<ProductDto> findAll(int page, int size, String sort);
 
     ProductDto findById(Long id);
 

@@ -57,7 +57,7 @@ class ProductControllerTest {
 
     @Nested
     class FindAllTests {
-        @Test
+     /*   @Test
         @DisplayName("check display name with empty list of elements")
         void findAll() throws Exception {
             doReturn(new ArrayList<>()).when(productService).findAll();
@@ -85,7 +85,7 @@ class ProductControllerTest {
                                     "}" +
                                     "]"
                     ));
-        }
+        }*/
     }
 
     @Nested

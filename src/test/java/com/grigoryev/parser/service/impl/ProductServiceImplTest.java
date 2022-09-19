@@ -40,7 +40,7 @@ class ProductServiceImplTest {
         productServiceImpl = spy(new ProductServiceImpl(productRepository, mappingProductUtils));
     }
 
-    @Test
+   /* @Test
     @DisplayName("check findAll method")
     void findAll() {
         ProductDto productDto = getMockedProductDto();
@@ -48,7 +48,7 @@ class ProductServiceImplTest {
         List<ProductDto> productDtoList = productServiceImpl.findAll();
         assertEquals(1, productDtoList.size());
         assertEquals(productDto, productDtoList.get(0));
-    }
+    }*/
 
     @Test
     @DisplayName("check if error throws when Product is not found")

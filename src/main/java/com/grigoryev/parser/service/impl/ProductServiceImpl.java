@@ -8,6 +8,10 @@ import com.grigoryev.parser.service.ProductService;
 import com.grigoryev.parser.utils.MappingProductUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,10 +41,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> findAll() {
-        List<Product> productList = productRepository.findAll();
-        log.info("Finding {} products ...", productList.size());
-        return productList.stream()
+    public List<ProductDto> findAll(int page, int size, String sort) {
+        Pageable paging = PageRequest.of(page, size, Sort.by(sort));
+        Page<Product> pagedResult = productRepository.findAll(paging);
+        log.info("Finding {} products ...", pagedResult.getSize());
+        return pagedResult.stream()
                 .map(mappingProductUtils::mapToProductDto)
                 .toList();
     }

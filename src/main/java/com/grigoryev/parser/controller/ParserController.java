@@ -26,7 +26,7 @@ public class ParserController {
     @Operation(summary = "Choose number of department to parse", tags = "Parser", description = "Let's parse chosen products. This may take some time!")
     @Parameter(name = "department", description = "Enter a number of department that you want to parse from 1 to 9", example = "2")
     @GetMapping
-    public ResponseEntity<String> parseAllProducts(@RequestParam String department) {
+    public ResponseEntity<String> parseAllProducts(@RequestParam("department") String department) {
         switch (department) {
             case "1" -> productParserDepartments.parseBuildingMaterialsProducts();
             case "2" -> productParserDepartments.parseHomeWareProducts();
