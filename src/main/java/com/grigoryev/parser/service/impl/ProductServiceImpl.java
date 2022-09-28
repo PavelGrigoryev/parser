@@ -5,7 +5,7 @@ import com.grigoryev.parser.exception.NoSuchProductException;
 import com.grigoryev.parser.model.Product;
 import com.grigoryev.parser.repository.ProductRepository;
 import com.grigoryev.parser.service.ProductService;
-import com.grigoryev.parser.utils.MappingProductUtils;
+import com.grigoryev.parser.mapper.ProductMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -23,11 +23,11 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
-    private final MappingProductUtils mappingProductUtils;
+    private final ProductMapper productMapper;
 
     @Override
     public Product save(ProductDto productDto) {
-        Product product = mappingProductUtils.mapToProductEntity(productDto);
+        Product product = productMapper.mapToProductEntity(productDto);
         log.info("Saving new product \"{}\" with the price \"{}\"", product.getName(), product.getPriceBYN());
         return productRepository.save(product);
     }
@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
     public void saveAll(List<ProductDto> productDtoList) {
         log.info("Saving {} products ...", productDtoList.size());
         productRepository.saveAll(productDtoList.stream()
-                .map(mappingProductUtils::mapToProductEntity)
+                .map(productMapper::mapToProductEntity)
                 .toList());
     }
 
@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
         Page<Product> pagedResult = productRepository.findAll(paging);
         log.info("Finding {} products ...", pagedResult.getSize());
         return pagedResult.stream()
-                .map(mappingProductUtils::mapToProductDto)
+                .map(productMapper::mapToProductDto)
                 .toList();
     }
 
@@ -55,14 +55,14 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new NoSuchProductException("No such products with ID " + id + " in database"));
         log.info("The product \"{}\" is found", product.getName());
-        return mappingProductUtils.mapToProductDto(productRepository.findById(id).orElse(new Product()));
+        return productMapper.mapToProductDto(productRepository.findById(id).orElse(new Product()));
     }
 
     @Override
     public List<ProductDto> findByName(String name) {
         log.info("Finding products by name - \"{}\" ...", name);
         return productRepository.findByName(name).stream()
-                .map(mappingProductUtils::mapToProductDto)
+                .map(productMapper::mapToProductDto)
                 .toList();
     }
 
@@ -71,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
         List<Product> productList = productRepository.findByNameStartsWith(name);
         log.info("Finding {} products by name starting with \"{}\" ...", productList.size(), name);
         return productList.stream()
-                .map(mappingProductUtils::mapToProductDto)
+                .map(productMapper::mapToProductDto)
                 .toList();
     }
 
@@ -80,7 +80,7 @@ public class ProductServiceImpl implements ProductService {
         List<Product> productList = productRepository.findByManufacturer(manufacturer);
         log.info("Finding {} products by manufacturer \"{}\" ...", productList.size(), manufacturer);
         return productList.stream()
-                .map(mappingProductUtils::mapToProductDto)
+                .map(productMapper::mapToProductDto)
                 .toList();
     }
 

@@ -1,4 +1,4 @@
-package com.grigoryev.parser.utils;
+package com.grigoryev.parser.listener;
 
 import com.grigoryev.parser.model.Product;
 import com.grigoryev.parser.service.SequenceGeneratorService;

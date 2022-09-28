@@ -66,6 +66,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public Map<String, Object> register(String firstName, String lastName, String userName, String email, String password) {
         Map<String, Object> responseMap = new HashMap<>();
+        User user = getUser(firstName, lastName, userName, email, password);
+        UserDetails userDetails = userDetailsService.createUserDetails(userName, user.getPassword());
+        String token = jwtTokenUtil.generateToken(userDetails);
+        userRepository.save(user);
+        log.info("\nUsername is \"{}\"\nAccount created successfully\ntoken is \"{}\"", userName, token);
+        responseMap.put("username", userName);
+        responseMap.put("message", "Account created successfully");
+        responseMap.put("token", token);
+        return responseMap;
+    }
+
+    private static User getUser(String firstName, String lastName, String userName, String email, String password) {
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -73,15 +85,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setPassword(new BCryptPasswordEncoder().encode(password));
         user.setRole("USER");
         user.setUserName(userName);
-        UserDetails userDetails = userDetailsService.createUserDetails(userName, user.getPassword());
-        String token = jwtTokenUtil.generateToken(userDetails);
-        userRepository.save(user);
-        log.info("Username is {}", userName);
-        log.info("Account created successfully");
-        log.info("token is \"{}\"", token);
-        responseMap.put("username", userName);
-        responseMap.put("message", "Account created successfully");
-        responseMap.put("token", token);
-        return responseMap;
+        return user;
     }
 }

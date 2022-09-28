@@ -1,11 +1,11 @@
-package com.grigoryev.parser.utils;
+package com.grigoryev.parser.mapper;
 
 import com.grigoryev.parser.dto.ProductDto;
 import com.grigoryev.parser.model.Product;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MappingProductUtils {
+public class ProductMapper {
 
     public ProductDto mapToProductDto(Product product) {
         ProductDto dto = new ProductDto();

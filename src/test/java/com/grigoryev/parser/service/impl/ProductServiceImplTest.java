@@ -4,12 +4,11 @@ import com.grigoryev.parser.dto.ProductDto;
 import com.grigoryev.parser.exception.NoSuchProductException;
 import com.grigoryev.parser.model.Product;
 import com.grigoryev.parser.repository.ProductRepository;
-import com.grigoryev.parser.utils.MappingProductUtils;
+import com.grigoryev.parser.mapper.ProductMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,12 +31,12 @@ class ProductServiceImplTest {
 
     private ProductRepository productRepository;
 
-    private MappingProductUtils mappingProductUtils;
+    private ProductMapper productMapper;
 
     @BeforeEach
     void init() {
         productRepository = mock(ProductRepository.class);
-        productServiceImpl = spy(new ProductServiceImpl(productRepository, mappingProductUtils));
+        productServiceImpl = spy(new ProductServiceImpl(productRepository, productMapper));
     }
 
    /* @Test
