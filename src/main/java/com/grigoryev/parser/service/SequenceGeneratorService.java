@@ -1,6 +1,6 @@
 package com.grigoryev.parser.service;
 
-import com.grigoryev.parser.model.DataBaseSequence;
+import com.grigoryev.parser.model.DatabaseSequence;
 import lombok.AllArgsConstructor;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Update;
@@ -20,9 +20,9 @@ public class SequenceGeneratorService {
     private final MongoOperations mongoOperations;
 
     public long generateSequence(String seqName) {
-        DataBaseSequence counter = mongoOperations.findAndModify(query(where("_id").is(seqName)),
+        DatabaseSequence counter = mongoOperations.findAndModify(query(where("_id").is(seqName)),
                 new Update().inc("seq",1), options().returnNew(true).upsert(true),
-                DataBaseSequence.class);
+                DatabaseSequence.class);
         return !Objects.isNull(counter) ? counter.getSeq() : 1;
 
     }

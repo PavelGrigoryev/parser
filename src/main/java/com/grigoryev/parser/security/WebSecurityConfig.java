@@ -17,6 +17,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,20 +55,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .exceptionHandling()
-                .authenticationEntryPoint((request, response, authException) -> {
-                    Map<String, Object> responseMap = new HashMap<>();
-                    ObjectMapper mapper = new ObjectMapper();
-                    response.setStatus(401);
-                    responseMap.put("error", true);
-                    responseMap.put("message", "Unauthorized");
-                    response.setHeader("content-type", "application/json");
-                    String responseMsg = mapper.writeValueAsString(responseMap);
-                    response.getWriter().write(responseMsg);
-                })
+                .authenticationEntryPoint((request, response, authException) -> unauthorized(response))
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    private static void unauthorized(HttpServletResponse response) throws IOException {
+        Map<String, Object> responseMap = new HashMap<>();
+        ObjectMapper mapper = new ObjectMapper();
+        response.setStatus(401);
+        responseMap.put("error", true);
+        responseMap.put("message", "Unauthorized");
+        response.setHeader("content-type", "application/json");
+        String responseMsg = mapper.writeValueAsString(responseMap);
+        response.getWriter().write(responseMsg);
     }
 }
