@@ -1,10 +1,11 @@
 package com.grigoryev.parser.job.departments;
 
+import com.grigoryev.parser.config.NumberOfParsablePages;
+import com.grigoryev.parser.config.ParsableUrl;
 import com.grigoryev.parser.exception.NoSuchDepartmentException;
 import com.grigoryev.parser.job.ProductParser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,59 +17,9 @@ public class ProductDepartmentsParser {
 
     private final ProductParser productParser;
 
-    @Value("${parsable.building.materials.url}")
-    private String buildingMaterialsUrl;
+    private final ParsableUrl parsableUrl;
 
-    @Value("${number.of.building.materials.pages}")
-    private int buildingMaterialsNumberOfPages;
-
-    @Value("${parsable.homeware.url}")
-    private String homeWareUrl;
-
-    @Value("${number.of.homeware.pages}")
-    private int homeWareNumberOfPages;
-
-    @Value("${parsable.instrument&electrical.url}")
-    private String instrumentAndElectricalUrl;
-
-    @Value("${number.of.instrument&electrical.pages}")
-    private int instrumentAndElectricalNumberOfPages;
-
-    @Value("${parsable.woodwork.url}")
-    private String woodWorkUrl;
-
-    @Value("${number.of.woodwork.pages}")
-    private int woodWorkNumberOfPages;
-
-    @Value("${parsable.sanitary.url}")
-    private String sanitaryUrl;
-
-    @Value("${number.of.sanitary.pages}")
-    private int sanitaryNumberOfPages;
-
-    @Value("${parsable.flooring.url}")
-    private String flooringUrl;
-
-    @Value("${number.of.flooring.pages}")
-    private int flooringNumberOfPages;
-
-    @Value("${parsable.paint.url}")
-    private String paintUrl;
-
-    @Value("${number.of.paint.pages}")
-    private int paintNumberOfPages;
-
-    @Value("${parsable.decorative.materials.url}")
-    private String decorativeMaterialsUrl;
-
-    @Value("${number.of.decorative.materials.pages}")
-    private int decorativeMaterialsNumberOfPages;
-
-    @Value("${parsable.gardening.url}")
-    private String gardeningUrl;
-
-    @Value("${number.of.gardening.pages}")
-    private int gardeningNumberOfPages;
+    private final NumberOfParsablePages numberOfParsablePages;
 
     public void enterNumberOfDepartmentToParse(Integer departmentNumber) {
         switch (departmentNumber) {
@@ -87,38 +38,38 @@ public class ProductDepartmentsParser {
     }
 
     public void parseBuildingMaterialsProducts() {
-        productParser.parseProducts(buildingMaterialsUrl, buildingMaterialsNumberOfPages);
+        productParser.parseProducts(parsableUrl.getBuilding(), numberOfParsablePages.getBuilding());
     }
 
     public void parseHomeWareProducts() {
-        productParser.parseProducts(homeWareUrl, homeWareNumberOfPages);
+        productParser.parseProducts(parsableUrl.getHome(), numberOfParsablePages.getHome());
     }
 
     public void parseInstrumentAndElectricalProducts() {
-        productParser.parseProducts(instrumentAndElectricalUrl, instrumentAndElectricalNumberOfPages);
+        productParser.parseProducts(parsableUrl.getInstrument(), numberOfParsablePages.getInstrument());
     }
 
     public void parseWoodWorkProducts() {
-        productParser.parseProducts(woodWorkUrl, woodWorkNumberOfPages);
+        productParser.parseProducts(parsableUrl.getWoodwork(), numberOfParsablePages.getWoodwork());
     }
 
     public void parseSanitaryProducts() {
-        productParser.parseProducts(sanitaryUrl, sanitaryNumberOfPages);
+        productParser.parseProducts(parsableUrl.getSanitary(), numberOfParsablePages.getSanitary());
     }
 
     public void parseFlooringProducts() {
-        productParser.parseProducts(flooringUrl, flooringNumberOfPages);
+        productParser.parseProducts(parsableUrl.getFlooring(), numberOfParsablePages.getFlooring());
     }
 
     public void parsePaintProducts() {
-        productParser.parseProducts(paintUrl, paintNumberOfPages);
+        productParser.parseProducts(parsableUrl.getPaint(), numberOfParsablePages.getPaint());
     }
 
     public void parseDecorativeMaterialsProducts() {
-        productParser.parseProducts(decorativeMaterialsUrl, decorativeMaterialsNumberOfPages);
+        productParser.parseProducts(parsableUrl.getDecorative(), numberOfParsablePages.getDecorative());
     }
 
     public void parseGardeningProducts() {
-        productParser.parseProducts(gardeningUrl, gardeningNumberOfPages);
+        productParser.parseProducts(parsableUrl.getGardening(), numberOfParsablePages.getGardening());
     }
 }
