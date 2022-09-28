@@ -1,7 +1,7 @@
 package com.grigoryev.parser.controller;
 
 import com.grigoryev.parser.exception.NoSuchDepartmentException;
-import com.grigoryev.parser.job.departments.ProductParserDepartments;
+import com.grigoryev.parser.job.departments.ProductDepartmentsParser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -21,25 +21,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/parser")
 public class ParserController {
 
-    private final ProductParserDepartments productParserDepartments;
+    private final ProductDepartmentsParser productDepartmentsParser;
 
     @Operation(summary = "Choose number of department to parse", tags = "Parser", description = "Let's parse chosen products. This may take some time!")
-    @Parameter(name = "department", description = "Enter a number of department that you want to parse from 1 to 9", example = "2")
+    @Parameter(name = "departmentNumber", description = "Enter a number of department that you want to parse from 1 to 9", example = "2")
     @GetMapping
-    public ResponseEntity<String> parseAllProducts(@RequestParam("department") String department) {
-        switch (department) {
-            case "1" -> productParserDepartments.parseBuildingMaterialsProducts();
-            case "2" -> productParserDepartments.parseHomeWareProducts();
-            case "3" -> productParserDepartments.parseInstrumentAndElectricalProducts();
-            case "4" -> productParserDepartments.parseWoodWorkProducts();
-            case "5" -> productParserDepartments.parseSanitaryProducts();
-            case "6" -> productParserDepartments.parseFlooringProducts();
-            case "7" -> productParserDepartments.parsePaintProducts();
-            case "8" -> productParserDepartments.parseDecorativeMaterialsProducts();
-            case "9" -> productParserDepartments.parseGardeningProducts();
-            default -> throw new NoSuchDepartmentException("There is no such department with №" + department +
+    public ResponseEntity<String> parseAllProducts(@RequestParam("departmentNumber") Integer departmentNumber) {
+        switch (departmentNumber) {
+            case 1 -> productDepartmentsParser.parseBuildingMaterialsProducts();
+            case 2 -> productDepartmentsParser.parseHomeWareProducts();
+            case 3 -> productDepartmentsParser.parseInstrumentAndElectricalProducts();
+            case 4 -> productDepartmentsParser.parseWoodWorkProducts();
+            case 5 -> productDepartmentsParser.parseSanitaryProducts();
+            case 6 -> productDepartmentsParser.parseFlooringProducts();
+            case 7 -> productDepartmentsParser.parsePaintProducts();
+            case 8 -> productDepartmentsParser.parseDecorativeMaterialsProducts();
+            case 9 -> productDepartmentsParser.parseGardeningProducts();
+            default -> throw new NoSuchDepartmentException("There is no such department with №" + departmentNumber +
                     ". Enter the correct department number please, for example: 1, 2, 3, 4, 5, 6, 7, 8, 9");
         }
-        return new ResponseEntity<>("A few moments later! We parsed department №" + department, HttpStatus.OK);
+        return new ResponseEntity<>("A few moments later! We parsed department №" + departmentNumber, HttpStatus.OK);
     }
 }

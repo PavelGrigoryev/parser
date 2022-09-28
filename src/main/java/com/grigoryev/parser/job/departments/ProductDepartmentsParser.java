@@ -11,20 +11,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Transactional
 @RequiredArgsConstructor
-public class ProductParserDepartments {
+public class ProductDepartmentsParser {
 
     private final ProductParser productParser;
 
-    @Value("${parsable.buildingMaterials.url}")
+    @Value("${parsable.building.materials.url}")
     private String buildingMaterialsUrl;
 
-    @Value("${number.of.buildingMaterials.url}")
+    @Value("${number.of.building.materials.pages}")
     private int buildingMaterialsNumberOfPages;
 
-    @Value("${parsable.homeWare.url}")
+    @Value("${parsable.homeware.url}")
     private String homeWareUrl;
 
-    @Value("${number.of.homeWare.pages}")
+    @Value("${number.of.homeware.pages}")
     private int homeWareNumberOfPages;
 
     @Value("${parsable.instrument&electrical.url}")
@@ -33,10 +33,10 @@ public class ProductParserDepartments {
     @Value("${number.of.instrument&electrical.pages}")
     private int instrumentAndElectricalNumberOfPages;
 
-    @Value("${parsable.woodWork.url}")
+    @Value("${parsable.woodwork.url}")
     private String woodWorkUrl;
 
-    @Value("${number.of.woodWork.pages}")
+    @Value("${number.of.woodwork.pages}")
     private int woodWorkNumberOfPages;
 
     @Value("${parsable.sanitary.url}")
@@ -57,10 +57,10 @@ public class ProductParserDepartments {
     @Value("${number.of.paint.pages}")
     private int paintNumberOfPages;
 
-    @Value("${parsable.decorativeMaterials.url}")
+    @Value("${parsable.decorative.materials.url}")
     private String decorativeMaterialsUrl;
 
-    @Value("${number.of.decorativeMaterials.pages}")
+    @Value("${number.of.decorative.materials.pages}")
     private int decorativeMaterialsNumberOfPages;
 
     @Value("${parsable.gardening.url}")
