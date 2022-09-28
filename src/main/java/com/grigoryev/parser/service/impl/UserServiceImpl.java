@@ -1,5 +1,7 @@
 package com.grigoryev.parser.service.impl;
 
+import com.grigoryev.parser.model.User;
+import com.grigoryev.parser.repository.UserRepository;
 import com.grigoryev.parser.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,8 @@ import java.util.Map;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
+    private final UserRepository userRepository;
+
     @Override
     public Map<String, Object> getUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -22,5 +26,10 @@ public class UserServiceImpl implements UserService {
         userMap.put("username", authentication.getName());
         log.info("Username is {}", authentication.getName());
         return userMap;
+    }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
     }
 }

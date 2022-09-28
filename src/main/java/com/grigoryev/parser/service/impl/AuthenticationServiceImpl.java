@@ -1,9 +1,9 @@
 package com.grigoryev.parser.service.impl;
 
 import com.grigoryev.parser.model.User;
-import com.grigoryev.parser.repository.UserRepository;
 import com.grigoryev.parser.security.jwt.JwtTokenUtil;
 import com.grigoryev.parser.service.AuthenticationService;
+import com.grigoryev.parser.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,7 +23,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     private final AuthenticationManager authenticationManager;
 
@@ -69,7 +69,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = getUser(firstName, lastName, userName, email, password);
         UserDetails userDetails = userDetailsService.createUserDetails(userName, user.getPassword());
         String token = jwtTokenUtil.generateToken(userDetails);
-        userRepository.save(user);
+        userService.save(user);
         log.info("\nUsername is \"{}\"\nAccount created successfully\ntoken is \"{}\"", userName, token);
         responseMap.put("username", userName);
         responseMap.put("message", "Account created successfully");
