@@ -36,28 +36,40 @@ public class ProductParser {
 
                 List<ProductDto> productDtoList = new ArrayList<>();
 
-                for (Element element : divs) {
-                    for (int i = 0; i < element.select("div.td_name").size(); i++) {
-                        String name = element.select("div.td_name").get(i).text();
-                        String manufacturer = element.select("div.td_proizv").get(i).text();
-                        String amount = element.select("div.td_nalich").get(i).text();
-                        String price = element.select("div.td_price").get(i).text();
-                        if (productService.findByName(name).isEmpty()) {
-                            ProductDto productDto = new ProductDto();
-                            productDto.setName(name);
-                            productDto.setManufacturer(manufacturer);
-                            productDto.setAmount(amount);
-                            productDto.setPriceBYN(price);
-                            productDtoList.add(productDto);
-                            log.warn("Adding new product : " + productDto.getName());
-                        }
-                    }
-                    productService.saveAll(productDtoList);
-                }
+                findElementsByDivs(divs, productDtoList);
 
             } catch (IOException e) {
                 log.error(e.getMessage(), e);
             }
+        }
+    }
+
+    private void findElementsByDivs(Elements divs, List<ProductDto> productDtoList) {
+        for (Element element : divs) {
+            findElementsByTds(productDtoList, element);
+        }
+    }
+
+    private void findElementsByTds(List<ProductDto> productDtoList, Element element) {
+        for (int i = 0; i < element.select("div.td_name").size(); i++) {
+            String name = element.select("div.td_name").get(i).text();
+            String manufacturer = element.select("div.td_proizv").get(i).text();
+            String amount = element.select("div.td_nalich").get(i).text();
+            String price = element.select("div.td_price").get(i).text();
+            checkIfProductNameIsInDB(productDtoList, name, manufacturer, amount, price);
+        }
+        productService.saveAll(productDtoList);
+    }
+
+    private void checkIfProductNameIsInDB(List<ProductDto> productDtoList, String name, String manufacturer, String amount, String price) {
+        if (productService.findByName(name).isEmpty()) {
+            ProductDto productDto = new ProductDto();
+            productDto.setName(name);
+            productDto.setManufacturer(manufacturer);
+            productDto.setAmount(amount);
+            productDto.setPriceBYN(price);
+            productDtoList.add(productDto);
+            log.warn("Adding new product : " + productDto.getName());
         }
     }
 
