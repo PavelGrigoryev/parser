@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/auth")
 @Tag(name = "Authentication", description = "The Authentication API")
+@Validated
 @AllArgsConstructor
 public class AuthenticationController {
 
@@ -34,8 +36,8 @@ public class AuthenticationController {
     )
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestParam("user_name") String username,
-                                       @RequestParam("password") String password) {
-       return new ResponseEntity<>(authenticationService.login(username, password), HttpStatus.OK);
+                                                     @RequestParam("password") String password) {
+        return new ResponseEntity<>(authenticationService.login(username, password), HttpStatus.OK);
     }
 
     @Operation(
@@ -50,10 +52,10 @@ public class AuthenticationController {
     )
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> register(@RequestParam("first_name") String firstName,
-                                      @RequestParam("last_name") String lastName,
-                                      @RequestParam("user_name") String userName,
-                                      @RequestParam("email") String email,
-                                      @RequestParam("password") String password) {
+                                                        @RequestParam("last_name") String lastName,
+                                                        @RequestParam("user_name") String userName,
+                                                        @RequestParam("email") String email,
+                                                        @RequestParam("password") String password) {
         return new ResponseEntity<>(authenticationService.register(firstName, lastName, userName, email, password),
                 HttpStatus.OK);
     }

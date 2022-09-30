@@ -7,6 +7,7 @@ import com.grigoryev.parser.service.AuthenticationService;
 import com.grigoryev.parser.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -71,11 +72,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         User user = getUser(firstName, lastName, userName, email, password);
         User existUsers = userService.findUserByUserName(userName);
         if (existUsers != null && existUsers.getUserName().equals(userName)) {
-                throw new UserWithThisNickNameIsAlreadyExistsException("User with nick name " + userName + " is already exists!");
+            throw new UserWithThisNickNameIsAlreadyExistsException("User with nick name " + userName + " is already exists!");
         }
         UserDetails userDetails = userDetailsService.createUserDetails(userName, user.getPassword());
         String token = jwtTokenUtil.generateToken(userDetails);
-        userService.save(user);
+        try {
+            userService.save(user);
+        } catch (DataIntegrityViolationException e) {
+            log.error(e.getMessage());
+            responseMap.put("Email is occupied", "Another user is already registered to this email!");
+            return responseMap;
+        }
         log.info("Username is {}", userName);
         log.info("Account created successfully");
         log.info("token is \"{}\"", token);
