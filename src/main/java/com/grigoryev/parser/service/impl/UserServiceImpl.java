@@ -32,4 +32,9 @@ public class UserServiceImpl implements UserService {
     public void save(User user) {
         userRepository.save(user);
     }
+
+    @Override
+    public User findUserByUserName(String username) {
+        return userRepository.findUserByUserName(username);
+    }
 }

@@ -17,8 +17,14 @@ public class ProductExceptionHandler {
     }
 
     @ExceptionHandler(NoSuchDepartmentException.class)
-    public ResponseEntity<IncorrectProductData> noSuchDepartmentException(NoSuchDepartmentException departmentException) {
-        data.setInfo(departmentException.getMessage());
+    public ResponseEntity<IncorrectProductData> noSuchDepartmentException(NoSuchDepartmentException exception) {
+        data.setInfo(exception.getMessage());
         return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserWithThisNickNameIsAlreadyExistsException.class)
+    public ResponseEntity<IncorrectProductData> userWithThisNickNameIsAlreadyExistsException(UserWithThisNickNameIsAlreadyExistsException exception) {
+        data.setInfo(exception.getMessage());
+        return new ResponseEntity<>(data, HttpStatus.CONFLICT);
     }
 }
