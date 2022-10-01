@@ -76,6 +76,14 @@ public class UserServiceImpl implements UserService {
         return responseMap;
     }
 
+    @Override
+    public void delete() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User registeredUser = userRepository.findUserByUserName(authentication.getName());
+        log.info("User {} was removed", registeredUser.getUserName());
+        userRepository.delete(registeredUser);
+    }
+
     private User getRegisteredUser(String newFirstName, String newLastName, String newUserName, String newEmail, String newPassword, Authentication authentication) {
         User registeredUser = userRepository.findUserByUserName(authentication.getName());
         registeredUser.setFirstName(newFirstName);

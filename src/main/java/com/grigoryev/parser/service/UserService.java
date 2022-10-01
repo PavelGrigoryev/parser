@@ -13,4 +13,6 @@ public interface UserService {
     User findUserByUserName(String username);
 
     Map<String, Object> update(String newFirstName, String newLastName, String newUserName, String newEmail, String newPassword);
+
+    void delete();
 }

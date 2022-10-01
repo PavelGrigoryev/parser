@@ -51,4 +51,11 @@ public class UserController {
         return new ResponseEntity<>(userService.update(newFirstName, newLastName, newUserName, newEmail, newPassword),
                 HttpStatus.OK);
     }
+
+    @Operation(summary = "Remove your data from database", tags = "User", description = "Let's remove your data")
+    @DeleteMapping
+    public ResponseEntity<String> delete() {
+        userService.delete();
+        return new ResponseEntity<>("Your data is successfully removed", HttpStatus.OK);
+    }
 }
