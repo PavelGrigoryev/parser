@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
@@ -32,7 +32,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public Map<String, Object> login(String username, String password) {
-        Map<String, Object> responseMap = new HashMap<>();
+        Map<String, Object> responseMap = new LinkedHashMap<>();
         String message = "message";
         try {
             Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
@@ -68,10 +68,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public Map<String, Object> register(String firstName, String lastName, String userName, String email, String password) {
-        Map<String, Object> responseMap = new HashMap<>();
+        Map<String, Object> responseMap = new LinkedHashMap<>();
         User user = getUser(firstName, lastName, userName, email, password);
-        User existUsers = userService.findUserByUserName(userName);
-        if (existUsers != null && existUsers.getUserName().equals(userName)) {
+        User existingUser = userService.findUserByUserName(userName);
+        if (existingUser != null && existingUser.getUserName().equals(userName)) {
             throw new UserWithThisNickNameIsAlreadyExistsException("User with nick name " + userName + " is already exists!");
         }
         UserDetails userDetails = userDetailsService.createUserDetails(userName, user.getPassword());
@@ -83,10 +83,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             responseMap.put("Email is occupied", "Another user is already registered to this email!");
             return responseMap;
         }
-        log.info("Username is {}", userName);
+        log.info("Username is {}", user.getUserName());
         log.info("Account created successfully");
         log.info("token is \"{}\"", token);
-        responseMap.put("username", userName);
+        responseMap.put("username", user.getUserName());
         responseMap.put("message", "Account created successfully");
         responseMap.put("token", token);
         return responseMap;
