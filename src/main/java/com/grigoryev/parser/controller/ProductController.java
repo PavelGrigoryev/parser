@@ -38,6 +38,19 @@ public class ProductController {
     }
 
     @Operation(
+            summary = "Update one product", tags = "Products", description = "Let's update our product",
+            requestBody = @io.swagger.v3.oas.annotations.parameters
+                    .RequestBody(description = "This is our RequestBody for product example",
+                    content = @Content(schema = @Schema(implementation = ProductDto.class))
+            )
+    )
+    @Parameter(name = "id", description = "Enter id here", example = "5")
+    @PatchMapping("/{id}")
+    public ResponseEntity<Product> update(@PathVariable("id") Long id, @RequestBody ProductDto productDto) {
+        return new ResponseEntity<>(productService.update(id, productDto), HttpStatus.OK);
+    }
+
+    @Operation(
             summary = "Find all products", tags = "Products", description = "Let's find all the products with pagination",
             parameters = {
                     @Parameter(name = "page_number", description = "Enter a page number here", example = "0"),
@@ -92,5 +105,12 @@ public class ProductController {
     public ResponseEntity<String> deleteById(@PathVariable("id") Long id) {
         productService.deleteById(id);
         return new ResponseEntity<>("The product with ID " + id + " has been deleted", HttpStatus.OK);
+    }
+
+    @Operation(summary = "Remove all products from database", tags = "Products", description = "Let's remove all products")
+    @DeleteMapping
+    public ResponseEntity<String> removeAll() {
+        productService.removeAll();
+        return new ResponseEntity<>("All products removed!!!", HttpStatus.OK);
     }
 }

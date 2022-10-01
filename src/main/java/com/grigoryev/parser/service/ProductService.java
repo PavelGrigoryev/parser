@@ -11,6 +11,8 @@ public interface ProductService {
 
     void saveAll(List<ProductDto> productDtoList);
 
+    Product update(Long id, ProductDto productDto);
+
     List<ProductDto> findAll(int page, int size, String sort);
 
     ProductDto findById(Long id);
@@ -22,4 +24,6 @@ public interface ProductService {
     List<ProductDto> findByManufacturer(String manufacturer);
 
     void deleteById(Long id);
+
+    void removeAll();
 }

@@ -28,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(ProductDto productDto) {
         Product product = productMapper.mapToProductEntity(productDto);
-        log.info("Saving new product \"{}\" with the price \"{}\"", product.getName(), product.getPriceBYN());
+        log.info("Saving product \"{}\" with the price \"{}\"", product.getName(), product.getPriceBYN());
         return productRepository.save(product);
     }
 
@@ -38,6 +38,15 @@ public class ProductServiceImpl implements ProductService {
         productRepository.saveAll(productDtoList.stream()
                 .map(productMapper::mapToProductEntity)
                 .toList());
+    }
+
+    @Override
+    public Product update(Long id, ProductDto productDto) {
+        if (!id.equals(productDto.getId())) {
+            productDto.setId(id);
+        }
+        log.info("Updating product with id {} and name {}", id, productDto.getName());
+        return save(productDto);
     }
 
     @Override
@@ -90,5 +99,11 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new NoSuchProductException("No such products with ID " + id + " in database"));
         log.info("The product \"{}\" has been deleted", product.getName());
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public void removeAll() {
+        productRepository.deleteAll();
+        log.info("All products removed !!!");
     }
 }
