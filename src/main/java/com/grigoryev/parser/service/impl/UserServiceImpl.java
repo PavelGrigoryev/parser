@@ -70,9 +70,11 @@ public class UserServiceImpl implements UserService {
         log.info("New Username is {}", registeredUser.getUserName());
         log.info("Account updated successfully");
         log.info("New token is \"{}\"", token);
+        log.info("The token is valid until the date : {}", jwtTokenUtil.getExpirationDateFromToken(token).toString());
         responseMap.put("newUsername", registeredUser.getUserName());
         responseMap.put("message", "Account updated successfully");
         responseMap.put("newToken", token);
+        responseMap.put("The token is valid until the date : ", jwtTokenUtil.getExpirationDateFromToken(token).toString());
         return responseMap;
     }
 

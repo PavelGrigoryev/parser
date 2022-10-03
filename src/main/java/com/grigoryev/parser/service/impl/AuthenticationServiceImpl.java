@@ -41,8 +41,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 String token = jwtTokenUtil.generateToken(userDetails);
                 log.info("{} logged In", username);
                 log.info("token is \"{}\"", token);
+                log.info("The token is valid until the date : {}", jwtTokenUtil.getExpirationDateFromToken(token).toString());
                 responseMap.put(message, "Logged In : " + username);
                 responseMap.put("token", token);
+                responseMap.put("The token is valid until the date : ", jwtTokenUtil.getExpirationDateFromToken(token).toString());
             } else {
                 responseMap.put(message, "Invalid Credentials");
             }
@@ -86,9 +88,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         log.info("Username is {}", user.getUserName());
         log.info("Account created successfully");
         log.info("token is \"{}\"", token);
+        log.info("The token is valid until the date : {}", jwtTokenUtil.getExpirationDateFromToken(token).toString());
         responseMap.put("username", user.getUserName());
         responseMap.put("message", "Account created successfully");
         responseMap.put("token", token);
+        responseMap.put("The token is valid until the date : ", jwtTokenUtil.getExpirationDateFromToken(token).toString());
         return responseMap;
     }
 

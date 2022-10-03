@@ -44,7 +44,7 @@ public class ProductController {
                     content = @Content(schema = @Schema(implementation = ProductDto.class))
             )
     )
-    @Parameter(name = "id", description = "Enter id here", example = "5")
+    @Parameter(name = "id", description = "Enter id here", example = "2068")
     @PatchMapping("/{id}")
     public ResponseEntity<Product> update(@PathVariable("id") Long id, @RequestBody ProductDto productDto) {
         return new ResponseEntity<>(productService.update(id, productDto), HttpStatus.OK);
@@ -80,7 +80,7 @@ public class ProductController {
     @Operation(
             summary = "Find all products by name starts with {...}", tags = "Products",
             description = "Let's find our products by name starts with {...}",
-            parameters = @Parameter(name = "name", description = "Enter name of product here", example = "Ручка")
+            parameters = @Parameter(name = "name", description = "Enter name of product here", example = "Перфоратор")
     )
     @GetMapping("/findByNameStartsWith/{name}")
     public ResponseEntity<List<ProductDto>> findByNameStartsWith(@PathVariable("name") String name) {
@@ -90,7 +90,7 @@ public class ProductController {
     @Operation(
             summary = "Find all products by {manufacturer}", tags = "Products",
             description = "Let's find our products by manufacturer",
-            parameters = @Parameter(name = "manufacturer", description = "Enter manufacturer here", example = "APECS")
+            parameters = @Parameter(name = "manufacturer", description = "Enter manufacturer here", example = "BOSCH")
     )
     @GetMapping("/findByManufacturer/{manufacturer}")
     public ResponseEntity<List<ProductDto>> findByManufacturer(@PathVariable("manufacturer") String manufacturer) {
@@ -99,7 +99,7 @@ public class ProductController {
 
     @Operation(
             summary = "Delete one product by {id}", tags = "Products", description = "Let's delete our product by id",
-            parameters = @Parameter(name = "id", description = "Enter id here", example = "401")
+            parameters = @Parameter(name = "id", description = "Enter id here", example = "2068")
     )
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteById(@PathVariable("id") Long id) {

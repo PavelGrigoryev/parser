@@ -23,7 +23,7 @@ public class ParserController {
     private final ProductDepartmentsParser productDepartmentsParser;
 
     @Operation(summary = "Choose number of department to parse", tags = "Parser", description = "Let's parse chosen products. This may take some time!")
-    @Parameter(name = "departmentNumber", description = "Enter a number of department that you want to parse from 1 to 9", example = "2")
+    @Parameter(name = "departmentNumber", description = "Enter a number of department that you want to parse from 1 to 9", example = "3")
     @GetMapping
     public ResponseEntity<String> parseAllProducts(@RequestParam("departmentNumber") Integer departmentNumber) {
         productDepartmentsParser.enterNumberOfDepartmentToParse(departmentNumber);
