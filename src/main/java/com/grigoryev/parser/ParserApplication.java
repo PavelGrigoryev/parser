@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @OpenAPIDefinition(
         info = @Info(
                 title = "Amazing Product Parser",
-                version = "1.0.0",
+                version = "1.5.4",
                 description = "Make life easier by parsing this site.",
                 license = @License(name = "Mayan Indians License 3.0"),
                 contact = @Contact(

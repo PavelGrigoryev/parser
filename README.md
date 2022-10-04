@@ -74,6 +74,7 @@
 - Токен действовал 30 минута, дата истечения логировалась и выводилась в теле ответа
 - [SwaggerToken](src/main/resources/static/swaggertoken.png),
 - [LoggerToken](src/main/resources/static/loggertoken.png)
+- [ExpiredToken](src/main/resources/static/expiredtoken.png)
 - Для разнообразия использую Postman
 - [Register](src/main/resources/static/postmanregister.png)
 - [FindById](src/main/resources/static/postmanfindbyid.png)
